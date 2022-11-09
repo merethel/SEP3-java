@@ -6,17 +6,67 @@ option java_multiple_files = true;
 package event;
 
 // The greeting service definition.
-service Greeter {
+service EventService {
   // Sends a greeting
-  rpc sayHello (HelloRequest) returns (HelloReply);
+  rpc create (EventCreationDtoMessage) returns (EventMessage);
+  rpc getById (IntRequest) returns (EventMessage);
+}
+
+service UserService {
+  // Sends a greeting
+  rpc create (UserCreationDtoMessage) returns (UserMessage);
+  rpc getById (IntRequest) returns (UserMessage);
+  rpc getByUsername (StringRequest) returns (UserMessage);
 }
 
 // The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
+message EventMessage {
+  int32 id = 1;
+  UserMessage user = 2;
+  string title = 3;
+  string description = 4;
+  string location = 5;
+  DateTimeMessage dateTime = 6;
 }
 
 // The response message containing the greetings.
-message HelloReply {
-  string message = 1;
+message UserMessage {
+  int32 id = 1;
+  string username = 2;
+  string password = 3;
+  string email = 4;
+  int32 securityLevel = 5;
 }
+
+message EventCreationDtoMessage {
+  string username = 1;
+  string title = 2;
+  string description = 3;
+  string location = 4;
+  DateTimeMessage dateTime = 5;
+
+}
+
+message UserCreationDtoMessage {
+  string username = 1;
+  string password = 2;
+  string email = 3;
+}
+
+message StringRequest {
+  string string = 1;
+}
+
+message IntRequest {
+  int32 int = 1;
+}
+
+message DateTimeMessage {
+  int32 day = 1;
+  int32 month = 2;
+  int32 year = 3;
+  int32 hour = 4;
+  int32 min = 5;
+}
+
+
