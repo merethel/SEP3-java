@@ -9,7 +9,8 @@ import javax.persistence.*;
 public class Event {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "event_seq")
+    @SequenceGenerator(name = "event_seq", allocationSize = 1)
     private int id;
     @ManyToOne(cascade=CascadeType.ALL)
     public User user;
@@ -40,6 +41,7 @@ public class Event {
 
     //Getters and Setters
 
+    public void setId(int id) {this.id = id;}
     public int getId() {
         return id;
     }

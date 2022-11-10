@@ -5,7 +5,7 @@ import event.*;
 
 public class GrpcFactory {
     //Event Mapping
-    public static Event fromMessageToEventWithoutOwner(EventMessage eventToMap){
+    public static Event fromMessageToEventWithoutOwner(EventMessage eventToMap) {
         Event event = new Event(
                 eventToMap.getTitle(),
                 eventToMap.getDescription(),
@@ -13,9 +13,10 @@ public class GrpcFactory {
                 fromDateTimeMessageToDateTime(eventToMap.getDateTime())
         );
         return event;
+
     }
 
-    public static EventMessage fromEventToMessage(Event eventToMap){
+    public static EventMessage fromEventToMessage(Event eventToMap) {
         EventMessage event = EventMessage.newBuilder()
                 .setId(eventToMap.getId())
                 .setUser(UserMessage.newBuilder()
@@ -33,7 +34,10 @@ public class GrpcFactory {
     }
 
     public static Event fromEventCreationDtoMessageToEvent(EventCreationDtoMessage eventToMap) {
+        User userWithName = new User();
+        userWithName.setUsername(eventToMap.getUsername());
         Event event = new Event(
+                userWithName,
                 eventToMap.getTitle(),
                 eventToMap.getDescription(),
                 eventToMap.getLocation(),
@@ -53,8 +57,7 @@ public class GrpcFactory {
                 .build();
     }
 
-    public static DateTime fromDateTimeMessageToDateTime(DateTimeMessage dateTimeToMap)
-    {
+    public static DateTime fromDateTimeMessageToDateTime(DateTimeMessage dateTimeToMap) {
         return DateTime.newBuilder()
                 .setDay(dateTimeToMap.getDay())
                 .setMonth(dateTimeToMap.getMonth())
@@ -66,7 +69,7 @@ public class GrpcFactory {
     }
 
     //User Mapping ------------------------------------------------------
-    public static UserMessage fromUserToMessage(User userToMap){
+    public static UserMessage fromUserToMessage(User userToMap) {
         UserMessage user = UserMessage.newBuilder()
                 .setId(userToMap.getId())
                 .setUsername(userToMap.getUsername())

@@ -17,13 +17,10 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
 
-        Scanner keyboard = new Scanner(System.in);
 
 
         Configuration configuration = new org.hibernate.cfg.Configuration();
         configuration.configure("hibernate.cfg.xml");
-        System.out.println("Please input your password to your local postgreSQL Database");
-        configuration.setProperty("hibernate.connection.password", keyboard.nextLine());
 
         configuration.addAnnotatedClass(Event.class);
         configuration.addAnnotatedClass(User.class);

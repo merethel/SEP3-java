@@ -37,7 +37,11 @@ public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
     @Override
     public void getByUsername(StringRequest request, StreamObserver<UserMessage> responseObserver) {
         User userReply = userDao.getByUsername(request.getString());
-        UserMessage reply = GrpcFactory.fromUserToMessage(userReply);
+        UserMessage reply = UserMessage.newBuilder().build();
+        if (userReply != null) {
+            reply = GrpcFactory.fromUserToMessage(userReply);
+        }
+        System.out.println(reply);
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
     }

@@ -6,9 +6,9 @@
     <session-factory>
         <!-- Connection settings -->
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
-        <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">3103</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://mouse.db.elephantsql.com/jyagczdm</property>
+        <property name="hibernate.connection.username">jyagczdm</property>
+        <property name="hibernate.connection.password">NkXBIxU_Emc1YTgybjP7tmf4ybhJwJmu</property>
         <property name = "hibernate.show_sql">true</property>
 
         <!-- SQL dialect -->

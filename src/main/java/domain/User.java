@@ -7,7 +7,8 @@ import java.util.List;
 @Table(name = "usertable")
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "user_seq")
+    @SequenceGenerator(name = "user_seq", allocationSize = 1)
     private int id;
     private String username;
     private String password;
@@ -30,8 +31,10 @@ public class User {
 
     }
 
+
     //Getters and Setters
 
+    public void setId(int id) {this.id = id;}
     public int getId() {
         return id;
     }
