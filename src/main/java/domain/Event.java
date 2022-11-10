@@ -12,7 +12,7 @@ public class Event {
     @GeneratedValue
     private int id;
     @ManyToOne(cascade=CascadeType.ALL)
-    public User owner_id;
+    public User user;
     public String title;
     public String description;
     public String location;
@@ -23,7 +23,7 @@ public class Event {
     }
 
     public Event(User owner, String title, String description, String location, DateTime date) {
-        this.owner_id = owner;
+        this.user = owner;
         this.title = title;
         this.description = description;
         this.location = location;
@@ -45,11 +45,11 @@ public class Event {
     }
 
     public User getOwner() {
-        return owner_id;
+        return user;
     }
 
     public void setOwner(User owner) {
-        this.owner_id = owner;
+        this.user = owner;
     }
 
     public String getTitle() {

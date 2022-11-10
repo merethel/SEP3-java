@@ -1,4 +1,5 @@
 event\UserServiceGrpc$MethodHandlers.class
+services\UserServiceImpl.class
 event\IntRequest$1.class
 event\UserServiceGrpc.class
 event\EventServiceGrpc$MethodHandlers.class
@@ -24,6 +25,7 @@ event\EventServiceGrpc$EventServiceDescriptorSupplier.class
 event\UserCreationDtoMessage$Builder.class
 domain\User.class
 event\EventServiceGrpc$EventServiceBlockingStub.class
+Daos\UserDao.class
 event\IntRequest.class
 event\EventMessage.class
 event\UserMessage$Builder.class
@@ -39,6 +41,7 @@ event\UserServiceGrpc$UserServiceStub.class
 event\EventCreationDtoMessageOrBuilder.class
 event\DateTimeMessageOrBuilder.class
 event\StringRequest$Builder.class
+Daos\EventDao.class
 event\DateTimeMessage$1.class
 event\EventServiceGrpc$EventServiceImplBase.class
 event\EventCreationDtoMessage.class

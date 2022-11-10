@@ -1,17 +1,22 @@
 package domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "usertable")
 public class User {
     @Id
     @GeneratedValue
-    public int owner_id;
-    public String username;
-    public String password;
-    public String email;
-    public int securityLevel;
+    private int id;
+    private String username;
+    private String password;
+    private String email;
+    private int securityLevel;
+
+    @OneToMany
+    @JoinColumn(name="user_id")
+    private List<Event> events;
 
 
     public User(String username, String password, String email, int securityLevel) {
@@ -28,7 +33,7 @@ public class User {
     //Getters and Setters
 
     public int getId() {
-        return owner_id;
+        return id;
     }
 
     public String getUsername() {
