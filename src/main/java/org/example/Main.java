@@ -48,7 +48,8 @@ public class Main {
 
         server.start();
 
-        System.out.println("Server is ready. >:)");
+        System.out.println("Server is ready.");
+        System.out.println("¯\\_(ツ)_/¯");
         server.awaitTermination();
     }
 }

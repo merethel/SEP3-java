@@ -19,6 +19,7 @@ public class GrpcFactory {
     public static EventMessage fromEventToMessage(Event eventToMap) {
         EventMessage event = EventMessage.newBuilder()
                 .setId(eventToMap.getId())
+                .setTitle(eventToMap.getTitle())
                 .setUser(UserMessage.newBuilder()
                         .setId(eventToMap.getOwner().getId())
                         .setUsername(eventToMap.getOwner().getUsername())
