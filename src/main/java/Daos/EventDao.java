@@ -30,13 +30,6 @@ public class EventDao implements EventDaoInterface {
         try {
             transaction = session.beginTransaction();
 
-
-            //QUICKFIX
-            //Her laver jeg egentlig UserDaos arbejde men jeg ved ikke hvordan jeg ellers lige gør det :/
-            Query<User> query = session.createQuery("from User u where u.username=:usernamestring", User.class).setParameter("usernamestring", event.getOwner().getUsername());
-            event.setOwner(query.getResultList().get(0));
-
-
             // here get object
             int eventId = (int) session.save(event);
             eventToReturn = session.get(Event.class, eventId);

@@ -17,17 +17,17 @@ public class EventServiceImpl extends EventServiceGrpc.EventServiceImplBase {
 
     private final EventDao eventDao;
     private final UserDao userDao;
-    public EventServiceImpl(EventDao eventDao, UserDao userDao) {
 
+    public EventServiceImpl(EventDao eventDao, UserDao userDao) {
         this.eventDao = eventDao;
         this.userDao = userDao;
-
     }
 
     @Override
     public void create(EventCreationDtoMessage request, StreamObserver<EventMessage> responseObserver) {
-
-        Event eventReply = eventDao.create(GrpcFactory.fromEventCreationDtoMessageToEvent(request));
+        Event eventToCreate = GrpcFactory.fromEventCreationDtoMessageToEvent(request);
+        eventToCreate.setOwner(userDao.getByUsername(request.getUsername()));
+        Event eventReply = eventDao.create(eventToCreate);
         EventMessage reply = GrpcFactory.fromEventToMessage(eventReply);
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
