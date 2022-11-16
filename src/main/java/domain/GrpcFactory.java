@@ -45,7 +45,6 @@ public class GrpcFactory {
                 fromDateTimeMessageToDateTime(eventToMap.getDateTime())
         );
         return event;
-
     }
 
     public static DateTimeMessage fromDateTimeToDateTimeMessage(DateTime dateTimeToMap) {

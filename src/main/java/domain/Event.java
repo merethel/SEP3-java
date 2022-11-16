@@ -9,8 +9,8 @@ import javax.persistence.*;
 public class Event {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "event_seq")
     @SequenceGenerator(name = "event_seq", allocationSize = 1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "event_seq")
     private int id;
     @ManyToOne(cascade=CascadeType.ALL)
     public User user;

@@ -34,8 +34,6 @@ public class Main {
 
 
         //IMPORTANT, run this line only to populate the datebase.
-        //LoadDatabase.initDatabase(sessionFactory);
-
         EventDao eventDao = new EventDao(sessionFactory);
         UserDao userDao = new UserDao(sessionFactory);
 
@@ -43,7 +41,7 @@ public class Main {
         //Add services to grpc server
         Server server = ServerBuilder.forPort(9090)
                 .addService(new EventServiceImpl(eventDao, userDao))
-                .addService(new UserServiceImpl(eventDao, userDao))
+                .addService(new UserServiceImpl(userDao))
                 .build();
 
         server.start();

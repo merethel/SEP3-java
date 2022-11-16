@@ -9,11 +9,9 @@ import io.grpc.stub.StreamObserver;
 
 public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
 
-    private final EventDao eventDao;
     private final UserDao userDao;
 
-    public UserServiceImpl(EventDao eventDao, UserDao userDao) {
-        this.eventDao = eventDao;
+    public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }
 

@@ -26,7 +26,6 @@ public class EventServiceImpl extends EventServiceGrpc.EventServiceImplBase {
 
     @Override
     public void create(EventCreationDtoMessage request, StreamObserver<EventMessage> responseObserver) {
-
         Event eventReply = eventDao.create(GrpcFactory.fromEventCreationDtoMessageToEvent(request));
         EventMessage reply = GrpcFactory.fromEventToMessage(eventReply);
         responseObserver.onNext(reply);

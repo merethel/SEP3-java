@@ -1,23 +1,15 @@
 package Daos;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-
 import DaoInterfaces.UserDaoInterface;
-import domain.Event;
 import domain.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.hibernate.query.criteria.*;
+import org.jboss.logging.Logger;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.swing.*;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class UserDao implements UserDaoInterface {
     private final SessionFactory sessionFactory;
@@ -52,7 +44,6 @@ public class UserDao implements UserDaoInterface {
         }
 
         return userToReturn;
-
 
     }
 

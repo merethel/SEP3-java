@@ -8,9 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-
-import java.util.List;
-import java.util.logging.Logger;
+import org.jboss.logging.Logger;
 
 public class EventDao implements EventDaoInterface {
     private final SessionFactory sessionFactory;
