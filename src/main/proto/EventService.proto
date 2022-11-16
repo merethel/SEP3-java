@@ -10,6 +10,8 @@ service EventService {
   // Sends a greeting
   rpc create (EventCreationDtoMessage) returns (EventMessage);
   rpc getById (IntRequest) returns (EventMessage);
+  //'intrequest' is quickfix
+  rpc getAllEvents (IntRequest) returns (ListEventMessage);
 }
 
 service UserService {
@@ -28,6 +30,12 @@ message EventMessage {
   string location = 5;
   DateTimeMessage dateTime = 6;
 }
+
+// Request for list of eventmessages
+message ListEventMessage {
+  repeated EventMessage events = 1;
+}
+
 
 // The response message containing the greetings.
 message UserMessage {
@@ -68,5 +76,3 @@ message DateTimeMessage {
   int32 hour = 4;
   int32 min = 5;
 }
-
-

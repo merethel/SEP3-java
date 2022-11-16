@@ -3,6 +3,8 @@ package domain;
 import com.google.type.DateTime;
 import event.*;
 
+import java.util.List;
+
 public class GrpcFactory {
     //Event Mapping
     public static Event fromMessageToEventWithoutOwner(EventMessage eventToMap) {
@@ -91,5 +93,17 @@ public class GrpcFactory {
 
     }
 
+
+    public static ListEventMessage fromEventListToEventListMessage(List<Event> events) {
+        ListEventMessage listToReturn = null;
+        ListEventMessage.Builder builder = ListEventMessage.newBuilder();
+        for (Event event : events)
+        {
+            builder.addEvents(fromEventToMessage(event));
+        }
+        listToReturn = builder.build();
+
+        return listToReturn;
+    }
 
 }

@@ -5,13 +5,11 @@ import Daos.EventDao;
 import Daos.UserDao;
 import domain.Event;
 import domain.GrpcFactory;
-import event.EventCreationDtoMessage;
-import event.EventMessage;
-import event.EventServiceGrpc;
+import event.*;
 
-import event.IntRequest;
 import io.grpc.stub.StreamObserver;
-import org.hibernate.SessionFactory;
+
+import java.util.List;
 
 public class EventServiceImpl extends EventServiceGrpc.EventServiceImplBase {
 
@@ -40,4 +38,13 @@ public class EventServiceImpl extends EventServiceGrpc.EventServiceImplBase {
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
     }
+
+    @Override
+    public void getAllEvents(IntRequest request, StreamObserver<ListEventMessage> responseObserver) {
+        List<Event> events = eventDao.getAllEvents();
+        ListEventMessage reply = GrpcFactory.fromEventListToEventListMessage(events);
+        responseObserver.onNext(reply);
+        responseObserver.onCompleted();
+    }
+
 }
