@@ -6,6 +6,7 @@ import domain.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,6 +30,7 @@ public class EventDaoTest {
 
           //Session factory - Creates temporary connections to the database (aka sessions)
 
+
           sessionFactory = configuration.buildSessionFactory();
 
           eventDao = new EventDao(sessionFactory);
@@ -43,22 +45,35 @@ public class EventDaoTest {
           session = sessionFactory.openSession();
           session.beginTransaction();
 
-          session.save(new User("Username1", "password1", "email1@email.dk", 1));
-          session.save(new User("Username2", "password2", "email2@email.dk", 1));
-          session.save(new User("Username3", "password3", "email3@email.dk", 1));
+          User user1 = new User("Username1", "password1", "email1@email.dk", 1);
+          User user2 = new User("Username2", "password2", "email2@email.dk", 1);
+          User user3 = new User("Username3", "password3", "email3@email.dk", 1);
 
-          session.save(new Event("Title1", "Description1", "Location1", dateTime));
-          session.save(new Event("Title2", "Description2", "Location2", dateTime));
-          session.save(new Event("Title3", "Description3", "Location3", dateTime));
+          session.save(user1);
+          session.save(user2);
+          session.save(user3);
+
+          session.save(new Event(user1, "Title1", "Description1", "Location1", dateTime));
+          session.save(new Event(user2, "Title2", "Description2", "Location2", dateTime));
+          session.save(new Event(user3, "Title3", "Description3", "Location3", dateTime));
           session.getTransaction().commit();
      }
 
      @AfterEach
      public void emptyDummyDatabase()
      {
-          session.createQuery("delete from event");
-          session.createQuery("delete from usertable");
-          session.close();
+          session.beginTransaction();
+          System.out.println("emptying dummy database");
+          Class c1 = Event.class;
+          String hql1 = "delete from " + c1.getSimpleName();
+          Query q1 = session.createQuery( hql1 );
+          q1.executeUpdate();
+
+          Class c2 = User.class;
+          String hql2 = "delete from " + c2.getSimpleName();
+          Query q2 = session.createQuery( hql2 );
+          q2.executeUpdate();
+          session.getTransaction().commit();
      }
 
      @Test
@@ -69,7 +84,6 @@ public class EventDaoTest {
           user.setUsername("Username1");
           Event eventToCreate = new Event(user, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build());
 
-
           //Act
           Event created = eventDao.create(eventToCreate);
 
@@ -77,4 +91,6 @@ public class EventDaoTest {
           assertSame(eventToCreate, created);
 
      }
+
+
 }
