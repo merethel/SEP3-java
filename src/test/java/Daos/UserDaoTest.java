@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class UserDaoTest {
 
-
     private static SessionFactory sessionFactory;
     private static EventDao eventDao;
 
@@ -96,14 +95,15 @@ public class UserDaoTest {
     public void testGetById()
     {
         //Arrange
-        User user = new User();
-        user.setId(2);
-
+        User user = new User("Username1", "PasswordTest", "testEmail@test.com", 2);
+        session.beginTransaction();
+        int id = (int) session.save(user);
+        session.getTransaction().commit(); //søger for at det bliver committet NU
         //Axt
-        User created = userDao.getById(user.getId());
+        User created = userDao.getById(id);
 
         //Assert
-        assertEquals(2, 2);
+        assertEquals(created.getId(), id);
 
     }
 
@@ -112,11 +112,12 @@ public class UserDaoTest {
     {
         //Arrange
         User user = new User("Username1", "password1", "email1@email.dk", 1);
+        session.save(user);
 
         //Act
-        User getByUsername = userDao.getByUsernamer(user.getUsername());
+        User getByUsername = userDao.getByUsername("Username1");
 
         //Assert
-        assertEquals("Username1", "Username1");
+        assertEquals(getByUsername.getUsername(), user.getUsername());
     }
 }
