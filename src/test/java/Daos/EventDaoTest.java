@@ -8,7 +8,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 
 public class EventDaoTest {
 
@@ -90,6 +92,22 @@ public class EventDaoTest {
           //Assert
           assertSame(eventToCreate, created);
 
+     }
+
+     @Test
+     public void testGetById()
+     {
+          //Arrange happens in before all and before each.
+          User user = new User();
+          user.setUsername("Username1");
+          Event eventToCreate = new Event(user, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build());
+          int id = (int) session.save(eventToCreate);
+
+          //Act
+          Event event = eventDao.getById(id);
+
+          //Assert
+          assertSame(event.getId(), id);
      }
 
 
