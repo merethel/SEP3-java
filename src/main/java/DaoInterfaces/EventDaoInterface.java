@@ -6,8 +6,8 @@ import org.postgresql.util.LruCache;
 import java.util.List;
 
 public interface EventDaoInterface {
-    public Event create(Event event);
-    public Event getById(int eventId);
-    public List<Event> getAllEvents();
-
+    Event create(Event event);
+    Event getById(int eventId);
+    List<Event> getAllEvents();
+    void addAttendeeToEventAttendeeList(int userId, int eventId);
 }

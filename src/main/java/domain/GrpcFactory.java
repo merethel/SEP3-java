@@ -3,22 +3,19 @@ package domain;
 import com.google.type.DateTime;
 import event.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GrpcFactory {
     //Event Mapping
-    public static Event fromMessageToEventWithoutOwner(EventMessage eventToMap) {
-        Event event = new Event(
-                eventToMap.getTitle(),
-                eventToMap.getDescription(),
-                eventToMap.getLocation(),
-                fromDateTimeMessageToDateTime(eventToMap.getDateTime())
-        );
-        return event;
-
-    }
 
     public static EventMessage fromEventToMessage(Event eventToMap) {
+        List<UserMessage> attendees = new ArrayList<>();
+
+        for (User attendee:eventToMap.getAttendees()) {
+            attendees.add(fromUserToMessage(attendee));
+        }
+
         EventMessage event = EventMessage.newBuilder()
                 .setId(eventToMap.getId())
                 .setTitle(eventToMap.getTitle())
@@ -32,6 +29,7 @@ public class GrpcFactory {
                 .setDescription(eventToMap.getDescription())
                 .setLocation(eventToMap.getLocation())
                 .setDateTime(fromDateTimeToDateTimeMessage(eventToMap.getDateTime()))
+                .addAllAttendees(attendees)
                 .build();
         return event;
     }
@@ -44,7 +42,8 @@ public class GrpcFactory {
                 eventToMap.getTitle(),
                 eventToMap.getDescription(),
                 eventToMap.getLocation(),
-                fromDateTimeMessageToDateTime(eventToMap.getDateTime())
+                fromDateTimeMessageToDateTime(eventToMap.getDateTime()),
+                new ArrayList<>()
         );
         return event;
     }

@@ -3,6 +3,7 @@ package domain;
 import com.google.type.DateTime;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "event")
@@ -19,29 +20,24 @@ public class Event {
     public String location;
     public DateTime dateTime;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    public List<User> attendees;
 
     public Event() {
     }
 
-    public Event(User owner, String title, String description, String location, DateTime date) {
-        this.user = owner;
+    public Event(User user, String title, String description, String location, DateTime dateTime, List<User> attendees) {
+        this.user = user;
         this.title = title;
         this.description = description;
         this.location = location;
-        this.dateTime = date;
+        this.dateTime = dateTime;
+        this.attendees = attendees;
     }
 
-    public Event(String title, String description, String location, DateTime date) {
-        this.title = title;
-        this.description = description;
-        this.location = location;
-        this.dateTime = date;
-    }
 
 
     //Getters and Setters
-
-    public void setId(int id) {this.id = id;}
     public int getId() {
         return id;
     }
@@ -58,31 +54,20 @@ public class Event {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public List<User> getAttendees() {
+        return attendees;
     }
 
     public DateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDate(DateTime dateTime) {
-        this.dateTime = dateTime;
-    }
 }

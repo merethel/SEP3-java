@@ -47,4 +47,10 @@ public class EventServiceImpl extends EventServiceGrpc.EventServiceImplBase {
         responseObserver.onCompleted();
     }
 
+    @Override
+    public void addAttendeeToEventAttendeeList(AddAttendeeRequest request, StreamObserver<IntRequest> responseObserver) {
+        eventDao.addAttendeeToEventAttendeeList(request.getUserId(), request.getEventId());
+        responseObserver.onNext(IntRequest.newBuilder().build());
+        responseObserver.onCompleted();
+    }
 }
