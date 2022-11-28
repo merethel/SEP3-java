@@ -18,6 +18,7 @@ public class UserDao implements UserDaoInterface {
         this.sessionFactory = sessionFactory;
     }
 
+
     @Override
     public User create(User user) {
         Session session = sessionFactory.openSession();
