@@ -7,9 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.jboss.logging.Logger;
-
 import java.util.List;
+import java.util.logging.Logger;
 
 public class UserDao implements UserDaoInterface {
     private final SessionFactory sessionFactory;
@@ -17,7 +16,6 @@ public class UserDao implements UserDaoInterface {
     public UserDao(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-
 
     @Override
     public User create(User user) {
@@ -45,6 +43,7 @@ public class UserDao implements UserDaoInterface {
         }
 
         return userToReturn;
+
 
     }
 

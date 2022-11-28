@@ -11,8 +11,6 @@ import org.hibernate.cfg.Configuration;
 import services.EventServiceImpl;
 import services.UserServiceImpl;
 
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) throws Exception {
 

@@ -2,13 +2,15 @@ package Daos;
 
 import DaoInterfaces.EventDaoInterface;
 import domain.Event;
-import domain.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-import org.jboss.logging.Logger;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import java.util.List;
+import java.util.logging.Logger;
 
 public class EventDao implements EventDaoInterface {
     private final SessionFactory sessionFactory;
@@ -24,16 +26,8 @@ public class EventDao implements EventDaoInterface {
         Transaction transaction = null;
         Event eventToReturn = null;
 
-
         try {
             transaction = session.beginTransaction();
-
-
-            //QUICKFIX
-            //Her laver jeg egentlig UserDaos arbejde men jeg ved ikke hvordan jeg ellers lige gør det :/
-            Query<User> query = session.createQuery("from User u where u.username=:usernamestring", User.class).setParameter("usernamestring", event.getOwner().getUsername());
-            event.setOwner(query.getResultList().get(0));
-
 
             // here get object
             int eventId = (int) session.save(event);
@@ -59,7 +53,6 @@ public class EventDao implements EventDaoInterface {
         Transaction transaction = null;
         Event eventToReturn = null;
 
-
         try {
             transaction = session.beginTransaction();
             eventToReturn = session.get(Event.class, eventId);
@@ -78,5 +71,32 @@ public class EventDao implements EventDaoInterface {
         return eventToReturn;
     }
 
+    @Override
+    public List<Event> getAllEvents() {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        List<Event> eventToReturn = null;
 
+        try {
+            transaction = session.beginTransaction();
+
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Event> criteria = builder.createQuery(Event.class);
+            criteria.from(Event.class);
+            eventToReturn = session.createQuery(criteria).getResultList();
+
+            transaction.commit();
+
+        } catch (HibernateException ex) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            Logger.getLogger("con").info("Exception: " + ex.getMessage());
+            ex.printStackTrace(System.err);
+        } finally {
+            session.close();
+        }
+
+        return eventToReturn;
+    }
 }
