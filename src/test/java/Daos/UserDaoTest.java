@@ -7,18 +7,16 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertSame;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserDaoTest {
 
 
     private static SessionFactory sessionFactory;
     private static EventDao eventDao;
+
+    private static UserDao userDao;
 
     private static Session session;
     @BeforeAll
@@ -38,6 +36,7 @@ public class UserDaoTest {
         sessionFactory = configuration.buildSessionFactory();
 
         eventDao = new EventDao(sessionFactory);
+        userDao = new UserDao(sessionFactory);
     }
 
     @BeforeEach
@@ -84,33 +83,40 @@ public class UserDaoTest {
     public void testCreate()
     {
         //Arrnge
-        User user = new User();
-        user.setUsername("Username1");
-        Event event = new Event(user, "TestTile", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setMonth(1).setYear(2023).setHours(12).build());
-
-        //Assert
+        User user = new User ("Username1", "PasswordTest", "testEmail@test.com", 2);
 
         //Act
+        User createdUser = userDao.create(user);
 
+        //Assert
+        assertSame(user, createdUser);
     }
-
-
 
     @Test
-    public void testCreate()
+    public void testGetById()
     {
-        //Arrange happens in before all and before each.
+        //Arrange
         User user = new User();
-        user.setUsername("Username1");
-        Event eventToCreate = new Event(user, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build());
+        user.setId(2);
 
-        //Act
-        Event created = eventDao.create(eventToCreate);
+        //Axt
+        User created = userDao.getById(user.getId());
 
         //Assert
-        assertSame(eventToCreate, created);
+        assertEquals(2, 2);
 
     }
 
+    @Test
+    public void getByUsername()
+    {
+        //Arrange
+        User user = new User("Username1", "password1", "email1@email.dk", 1);
 
+        //Act
+        User getByUsername = userDao.getByUsernamer(user.getUsername());
+
+        //Assert
+        assertEquals("Username1", "Username1");
+    }
 }
