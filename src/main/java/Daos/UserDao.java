@@ -7,8 +7,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.jboss.logging.Logger;
+
 import java.util.List;
-import java.util.logging.Logger;
 
 public class UserDao implements UserDaoInterface {
     private final SessionFactory sessionFactory;

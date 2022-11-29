@@ -102,22 +102,18 @@ public class EventDao implements EventDaoInterface {
     }
 
     @Override
-    public void addAttendeeToEventAttendeeList(int userId, int eventId) {
+    public Event addAttendeeToEventAttendeeList(int userId, int eventId) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
-        Event event = null;
+        Event eventToReturn = null;
         User user = null;
 
         try {
             transaction = session.beginTransaction();
+            user = session.get(User.class, userId);
+            eventToReturn = session.get(Event.class, eventId);
 
-            event = session.get(Event.class,eventId);
-            user = session.get(User.class,userId);
-
-            event.getAttendees().add(user);
-
-            session.update(event);
-
+            eventToReturn.getAttendees().add(user);
             transaction.commit();
 
         } catch (HibernateException ex) {
@@ -129,5 +125,6 @@ public class EventDao implements EventDaoInterface {
         } finally {
             session.close();
         }
+        return eventToReturn;
     }
 }

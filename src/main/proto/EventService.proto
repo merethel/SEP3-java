@@ -13,7 +13,7 @@ service EventService {
   //'intrequest' is quickfix
   rpc getAllEvents (IntRequest) returns (ListEventMessage);
 
-  rpc addAttendeeToEventAttendeeList (AddAttendeeRequest) returns (IntRequest);
+  rpc addAttendeeToEventAttendeeList (AddAttendeeRequest) returns (EventMessage);
 }
 
 service UserService {
