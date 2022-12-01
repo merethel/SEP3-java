@@ -32,6 +32,8 @@ message EventMessage {
   string location = 5;
   DateTimeMessage dateTime = 6;
   repeated UserMessage attendees = 7;
+  string category = 8;
+  string area = 9;
 }
 
 // Request for list of eventmessages
@@ -55,7 +57,8 @@ message EventCreationDtoMessage {
   string description = 3;
   string location = 4;
   DateTimeMessage dateTime = 5;
-
+  string category = 6;
+  string area = 7;
 }
 
 message UserCreationDtoMessage {

@@ -29,6 +29,8 @@ public class GrpcFactory {
                 .setDescription(eventToMap.getDescription())
                 .setLocation(eventToMap.getLocation())
                 .setDateTime(fromDateTimeToDateTimeMessage(eventToMap.getDateTime()))
+                .setCategory(eventToMap.getCategory())
+                .setArea(eventToMap.getArea())
                 .addAllAttendees(attendees)
                 .build();
         return event;
@@ -43,6 +45,8 @@ public class GrpcFactory {
                 eventToMap.getDescription(),
                 eventToMap.getLocation(),
                 fromDateTimeMessageToDateTime(eventToMap.getDateTime()),
+                eventToMap.getCategory(),
+                eventToMap.getArea(),
                 new ArrayList<>()
         );
         return event;

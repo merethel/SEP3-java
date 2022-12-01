@@ -19,6 +19,9 @@ public class Event {
     public String description;
     public String location;
     public DateTime dateTime;
+    public String category;
+    public String area;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     public List<User> attendees;
@@ -26,16 +29,17 @@ public class Event {
     public Event() {
     }
 
-    public Event(User user, String title, String description, String location, DateTime dateTime, List<User> attendees) {
+
+    public Event(User user, String title, String description, String location, DateTime dateTime, String category, String area, List<User> attendees) {
         this.user = user;
         this.title = title;
         this.description = description;
         this.location = location;
         this.dateTime = dateTime;
+        this.category = category;
+        this.area = area;
         this.attendees = attendees;
     }
-
-
 
     //Getters and Setters
     public int getId() {
@@ -70,4 +74,19 @@ public class Event {
         return dateTime;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
 }
