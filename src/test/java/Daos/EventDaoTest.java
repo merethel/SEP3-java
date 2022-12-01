@@ -47,9 +47,9 @@ public class EventDaoTest {
           session = sessionFactory.openSession();
           session.beginTransaction();
 
-          User user1 = new User("Username1", "password1", "email1@email.dk", 1);
-          User user2 = new User("Username2", "password2", "email2@email.dk", 1);
-          User user3 = new User("Username3", "password3", "email3@email.dk", 1);
+          User user1 = new User("Username1", "password1", "email1@email.dk", "User");
+          User user2 = new User("Username2", "password2", "email2@email.dk", "User");
+          User user3 = new User("Username3", "password3", "email3@email.dk", "User");
 
           session.save(user1);
           session.save(user2);

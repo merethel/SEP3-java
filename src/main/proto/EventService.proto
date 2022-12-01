@@ -46,7 +46,7 @@ message UserMessage {
   string username = 2;
   string password = 3;
   string email = 4;
-  int32 securityLevel = 5;
+  string role = 5;
 }
 
 message EventCreationDtoMessage {
@@ -62,6 +62,7 @@ message UserCreationDtoMessage {
   string username = 1;
   string password = 2;
   string email = 3;
+  string role = 4;
 }
 
 message StringRequest {
