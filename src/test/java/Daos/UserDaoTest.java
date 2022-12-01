@@ -8,6 +8,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import org.junit.jupiter.api.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserDaoTest {
@@ -56,9 +60,9 @@ public class UserDaoTest {
         session.save(user2);
         session.save(user3);
 
-        session.save(new Event(user1, "Title1", "Description1", "Location1", dateTime));
-        session.save(new Event(user2, "Title2", "Description2", "Location2", dateTime));
-        session.save(new Event(user3, "Title3", "Description3", "Location3", dateTime));
+        session.save(new Event(user1, "Title1", "Description1", "Location1", dateTime, new ArrayList<>()));
+        session.save(new Event(user2, "Title2", "Description2", "Location2", dateTime, new ArrayList<>()));
+        session.save(new Event(user3, "Title3", "Description3", "Location3", dateTime, new ArrayList<>()));
         session.getTransaction().commit();
     }
 
