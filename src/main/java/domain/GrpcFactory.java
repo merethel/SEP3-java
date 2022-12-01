@@ -27,7 +27,7 @@ public class GrpcFactory {
                         .setUsername(eventToMap.getOwner().getUsername())
                         .setPassword(eventToMap.getOwner().getPassword())
                         .setEmail(eventToMap.getOwner().getEmail())
-                        .setSecurityLevel(eventToMap.getOwner().getSecurityLevel())
+                        .setRole(eventToMap.getOwner().getRole())
                         .build())
                 .setDescription(eventToMap.getDescription())
                 .setLocation(eventToMap.getLocation())
@@ -77,7 +77,7 @@ public class GrpcFactory {
                 .setUsername(userToMap.getUsername())
                 .setPassword(userToMap.getPassword())
                 .setEmail(userToMap.getEmail())
-                .setSecurityLevel(userToMap.getSecurityLevel())
+                .setRole(userToMap.getRole())
                 .build();
         return user;
     }
@@ -86,7 +86,8 @@ public class GrpcFactory {
         User user = new User(
                 userToMap.getUsername(),
                 userToMap.getPassword(),
-                userToMap.getEmail(), 2
+                userToMap.getEmail(),
+                userToMap.getRole()
         );
         return user;
 
