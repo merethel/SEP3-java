@@ -9,6 +9,8 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import org.junit.jupiter.api.*;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 
@@ -47,17 +49,17 @@ public class EventDaoTest {
           session = sessionFactory.openSession();
           session.beginTransaction();
 
-          User user1 = new User("Username1", "password1", "email1@email.dk", 1);
-          User user2 = new User("Username2", "password2", "email2@email.dk", 1);
-          User user3 = new User("Username3", "password3", "email3@email.dk", 1);
+          User user1 = new User("Username1", "password1", "email1@email.dk", "User");
+          User user2 = new User("Username2", "password2", "email2@email.dk", "User");
+          User user3 = new User("Username3", "password3", "email3@email.dk", "User");
 
           session.save(user1);
           session.save(user2);
           session.save(user3);
 
-          session.save(new Event(user1, "Title1", "Description1", "Location1", dateTime));
-          session.save(new Event(user2, "Title2", "Description2", "Location2", dateTime));
-          session.save(new Event(user3, "Title3", "Description3", "Location3", dateTime));
+          session.save(new Event(user1, "Title1", "Description1", "Location1", dateTime, new ArrayList<>()));
+          session.save(new Event(user2, "Title2", "Description2", "Location2", dateTime, new ArrayList<>()));
+          session.save(new Event(user3, "Title3", "Description3", "Location3", dateTime, new ArrayList<>()));
           session.getTransaction().commit();
      }
 
@@ -84,7 +86,7 @@ public class EventDaoTest {
           //Arrange happens in before all and before each.
           User user = new User();
           user.setUsername("Username1");
-          Event eventToCreate = new Event(user, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build());
+          Event eventToCreate = new Event(user, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build(), new ArrayList<>());
 
           //Act
           Event created = eventDao.create(eventToCreate);
@@ -100,7 +102,7 @@ public class EventDaoTest {
           //Arrange happens in before all and before each.
           User user = new User();
           user.setUsername("Username1");
-          Event eventToCreate = new Event(user, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build());
+          Event eventToCreate = new Event(user, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build(), new ArrayList<>());
           int id = (int) session.save(eventToCreate);
 
           //Act

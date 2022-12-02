@@ -8,6 +8,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import org.junit.jupiter.api.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserDaoTest {
@@ -48,17 +52,17 @@ public class UserDaoTest {
         session = sessionFactory.openSession();
         session.beginTransaction();
 
-        User user1 = new User("Username1", "password1", "email1@email.dk", 1);
-        User user2 = new User("Username2", "password2", "email2@email.dk", 1);
-        User user3 = new User("Username3", "password3", "email3@email.dk", 1);
+        User user1 = new User("Username1", "password1", "email1@email.dk", "User");
+        User user2 = new User("Username2", "password2", "email2@email.dk", "User");
+        User user3 = new User("Username3", "password3", "email3@email.dk", "User");
 
         session.save(user1);
         session.save(user2);
         session.save(user3);
 
-        session.save(new Event(user1, "Title1", "Description1", "Location1", dateTime));
-        session.save(new Event(user2, "Title2", "Description2", "Location2", dateTime));
-        session.save(new Event(user3, "Title3", "Description3", "Location3", dateTime));
+        session.save(new Event(user1, "Title1", "Description1", "Location1", dateTime, new ArrayList<>()));
+        session.save(new Event(user2, "Title2", "Description2", "Location2", dateTime, new ArrayList<>()));
+        session.save(new Event(user3, "Title3", "Description3", "Location3", dateTime, new ArrayList<>()));
         session.getTransaction().commit();
     }
 
@@ -83,7 +87,7 @@ public class UserDaoTest {
     public void testCreate()
     {
         //Arrnge
-        User user = new User ("Username1", "PasswordTest", "testEmail@test.com", 2);
+        User user = new User ("Username1", "PasswordTest", "testEmail@test.com", "User");
 
         //Act
         User createdUser = userDao.create(user);
@@ -111,10 +115,10 @@ public class UserDaoTest {
     public void getByUsername()
     {
         //Arrange
-        User user = new User("Username1", "password1", "email1@email.dk", 1);
+        User user = new User("Username1", "password1", "email1@email.dk", "User");
 
         //Act
-        User getByUsername = userDao.getByUsernamer(user.getUsername());
+        User getByUsername = userDao.getByUsername(user.getUsername());
 
         //Assert
         assertEquals("Username1", "Username1");
