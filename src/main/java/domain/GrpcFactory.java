@@ -108,8 +108,4 @@ public class GrpcFactory {
         return listToReturn;
     }
 
-    public static int fromCancelEventIdMessageToEventId(IntRequest eventToMap) {
-        int toReturn = eventToMap.getInt();
-        return toReturn;
-    }
 }

@@ -60,9 +60,8 @@ public class EventServiceImpl extends EventServiceGrpc.EventServiceImplBase {
 
    @Override
    public void cancel(IntRequest request, StreamObserver<EventMessage> responseObserver) {
-
-        int eventToCancel = GrpcFactory.fromCancelEventIdMessageToEventId(request);
-        Event eventCancelReply = eventDao.cancel(eventToCancel);
+        System.out.println(request.getInt());
+        Event eventCancelReply = eventDao.cancel(request.getInt());
         EventMessage reply = GrpcFactory.fromEventToMessage(eventCancelReply);
         responseObserver.onNext(reply);
         responseObserver.onCompleted();

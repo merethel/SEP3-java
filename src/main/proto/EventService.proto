@@ -12,7 +12,7 @@ service EventService {
   rpc getById (IntRequest) returns (EventMessage);
   //'intrequest' is quickfix
   rpc getAllEvents (CriteriaDtoMessage) returns (ListEventMessage);
-
+  rpc cancel (IntRequest) returns (EventMessage);
   rpc addAttendeeToEventAttendeeList (AddAttendeeRequest) returns (EventMessage);
 }
 

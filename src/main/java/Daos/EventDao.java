@@ -89,7 +89,7 @@ public class EventDao implements EventDaoInterface {
 
 
             if(criteriaDto.getOwnerId() != 0)
-                criteria.where(builder.equal(eventRoot.get("user_id"), criteriaDto.getOwnerId()));
+                criteria.where(builder.equal(eventRoot.get("user"), criteriaDto.getOwnerId()));
             if(!criteriaDto.getArea().equals(""))
                 criteria.where(builder.equal(eventRoot.get("area"), criteriaDto.getArea()));
             if(!criteriaDto.getCategory().equals(""))
@@ -148,6 +148,7 @@ public class EventDao implements EventDaoInterface {
 
         try {
             transaction = session.beginTransaction();
+            System.out.println(eventId);
             eventToCancel = session.get(Event.class, eventId);
             session.delete(eventToCancel);
             transaction.commit();
