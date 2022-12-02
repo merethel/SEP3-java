@@ -3,6 +3,7 @@ package Daos;
 import DaoInterfaces.EventDaoInterface;
 import domain.Event;
 import domain.User;
+import event.CriteriaDtoMessage;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,6 +12,7 @@ import org.jboss.logging.Logger;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class EventDao implements EventDaoInterface {
@@ -73,7 +75,7 @@ public class EventDao implements EventDaoInterface {
     }
 
     @Override
-    public List<Event> getAllEvents() {
+    public List<Event> getAllEvents(CriteriaDtoMessage criteriaDto) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
         List<Event> eventToReturn = null;
@@ -83,7 +85,17 @@ public class EventDao implements EventDaoInterface {
 
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Event> criteria = builder.createQuery(Event.class);
-            criteria.from(Event.class);
+            Root<Event> eventRoot = criteria.from(Event.class);
+
+
+            if(criteriaDto.getOwnerId() != 0)
+                criteria.where(builder.equal(eventRoot.get("user_id"), criteriaDto.getOwnerId()));
+            if(!criteriaDto.getArea().equals(""))
+                criteria.where(builder.equal(eventRoot.get("area"), criteriaDto.getArea()));
+            if(!criteriaDto.getCategory().equals(""))
+                criteria.where(builder.equal(eventRoot.get("category"), criteriaDto.getCategory()));
+
+
             eventToReturn = session.createQuery(criteria).getResultList();
 
             transaction.commit();

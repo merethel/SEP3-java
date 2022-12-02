@@ -11,7 +11,7 @@ service EventService {
   rpc create (EventCreationDtoMessage) returns (EventMessage);
   rpc getById (IntRequest) returns (EventMessage);
   //'intrequest' is quickfix
-  rpc getAllEvents (IntRequest) returns (ListEventMessage);
+  rpc getAllEvents (CriteriaDtoMessage) returns (ListEventMessage);
 
   rpc addAttendeeToEventAttendeeList (AddAttendeeRequest) returns (EventMessage);
 }
@@ -87,4 +87,10 @@ message DateTimeMessage {
 message AddAttendeeRequest{
   int32 userId = 1;
   int32 eventId = 2;
+}
+
+message CriteriaDtoMessage {
+  int32 ownerId = 1;
+  string category = 2;
+  string area = 3;
 }

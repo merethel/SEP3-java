@@ -40,8 +40,8 @@ public class EventServiceImpl extends EventServiceGrpc.EventServiceImplBase {
     }
 
     @Override
-    public void getAllEvents(IntRequest request, StreamObserver<ListEventMessage> responseObserver) {
-        List<Event> events = eventDao.getAllEvents();
+    public void getAllEvents(CriteriaDtoMessage criteriaDtoMessage, StreamObserver<ListEventMessage> responseObserver) {
+        List<Event> events = eventDao.getAllEvents(criteriaDtoMessage);
         ListEventMessage reply = GrpcFactory.fromEventListToEventListMessage(events);
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
