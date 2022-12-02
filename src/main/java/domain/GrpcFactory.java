@@ -12,7 +12,7 @@ public class GrpcFactory {
     public static EventMessage fromEventToMessage(Event eventToMap) {
         List<UserMessage> attendees = new ArrayList<>();
 
-        for (User attendee:eventToMap.getAttendees()) {
+        for (User attendee : eventToMap.getAttendees()) {
             attendees.add(fromUserToMessage(attendee));
         }
 
@@ -100,8 +100,7 @@ public class GrpcFactory {
     public static ListEventMessage fromEventListToEventListMessage(List<Event> events) {
         ListEventMessage listToReturn = null;
         ListEventMessage.Builder builder = ListEventMessage.newBuilder();
-        for (Event event : events)
-        {
+        for (Event event : events) {
             builder.addEvents(fromEventToMessage(event));
         }
         listToReturn = builder.build();
@@ -109,4 +108,8 @@ public class GrpcFactory {
         return listToReturn;
     }
 
+    public static int fromCancelEventIdMessageToEventId(IntRequest eventToMap) {
+        int toReturn = eventToMap.getInt();
+        return toReturn;
+    }
 }

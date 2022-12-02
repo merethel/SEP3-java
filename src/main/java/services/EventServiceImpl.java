@@ -1,6 +1,5 @@
 package services;
 
-
 import Daos.EventDao;
 import Daos.UserDao;
 import domain.Event;
@@ -13,6 +12,7 @@ import java.util.List;
 
 public class EventServiceImpl extends EventServiceGrpc.EventServiceImplBase {
 
+    //private final EventDao eventDao;
     private final EventDao eventDao;
     private final UserDao userDao;
 
@@ -55,4 +55,18 @@ public class EventServiceImpl extends EventServiceGrpc.EventServiceImplBase {
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
     }
+
+
+
+   @Override
+   public void cancel(IntRequest request, StreamObserver<EventMessage> responseObserver) {
+
+        int eventToCancel = GrpcFactory.fromCancelEventIdMessageToEventId(request);
+        Event eventCancelReply = eventDao.cancel(eventToCancel);
+        EventMessage reply = GrpcFactory.fromEventToMessage(eventCancelReply);
+        responseObserver.onNext(reply);
+        responseObserver.onCompleted();
+
+    }
+
 }

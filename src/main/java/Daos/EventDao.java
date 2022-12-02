@@ -127,4 +127,31 @@ public class EventDao implements EventDaoInterface {
         }
         return eventToReturn;
     }
+
+    @Override
+    public Event cancel(int eventId) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        Event eventToCancel = null;
+
+        try {
+            transaction = session.beginTransaction();
+            eventToCancel = session.get(Event.class, eventId);
+            session.delete(eventToCancel);
+            transaction.commit();
+
+        } catch (HibernateException ex) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            Logger.getLogger("con").info("Exception: " + ex.getMessage());
+            ex.printStackTrace(System.err);
+        } finally {
+            session.close();
+        }
+
+        return eventToCancel;
+
+
+    }
 }

@@ -10,4 +10,5 @@ public interface EventDaoInterface {
     Event getById(int eventId);
     List<Event> getAllEvents();
     Event addAttendeeToEventAttendeeList(int userId, int eventId);
+    Event cancel(int eventId);
 }
