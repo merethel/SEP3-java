@@ -67,6 +67,8 @@ public class GrpcFactoryTest
         assertEquals(dtoMessage.getTitle(), eventTest.getTitle());
         assertEquals(dtoMessage.getDescription(), eventTest.getDescription());
         assertEquals(dtoMessage.getLocation(), eventTest.getLocation());
+        assertEquals(dtoMessage.getDateTime().getHour(), eventTest.getDateTime().getHours());
+        assertEquals(dtoMessage.getDateTime().getYear(), eventTest.getDateTime().getYear());
         assertEquals(dtoMessage.getCategory(), eventTest.getCategory());
         assertEquals(dtoMessage.getArea(), eventTest.getArea());
         //nogle vil være null og dem tester vi bare ikke
