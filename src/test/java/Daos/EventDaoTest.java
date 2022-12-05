@@ -11,7 +11,7 @@ import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class EventDaoTest {
@@ -87,6 +87,9 @@ public class EventDaoTest {
           User user = new User();
           user.setUsername("Username1");
           Event eventToCreate = new Event(user, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build(),"Category","Area", new ArrayList<>());
+          session.beginTransaction();
+          session.save(user);
+          session.getTransaction().commit();
 
           //Act
           Event created = eventDao.create(eventToCreate);
@@ -104,12 +107,37 @@ public class EventDaoTest {
           user.setUsername("Username1");
           Event eventToCreate = new Event(user, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build(),"Category","Area", new ArrayList<>());
           int id = (int) session.save(eventToCreate);
+          session.beginTransaction();
+          session.save(user);
+          session.getTransaction().commit();
 
           //Act
           Event event = eventDao.getById(id);
 
           //Assert
-          assertSame(event.getId(), id);
+          assertEquals(event.getId(), id);
+     }
+
+     @Test
+     public void testAttendeeAddedToEventList()
+     {
+          //Arrange
+          User user1 = new User("Username1", "password1", "email1@email.dk", "User");
+          Event eventToCreate = new Event(user1, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build(),"Category","Area", new ArrayList<>());
+          session.beginTransaction();
+          session.save(user1);
+          session.getTransaction().commit();
+
+          session.beginTransaction();
+          session.save(eventToCreate);
+          session.getTransaction().commit();
+
+          //Act
+          Event event = eventDao.addAttendeeToEventAttendeeList(user1.getId(), eventToCreate.getId());
+
+          //Assert
+          assertTrue(event.getAttendees().get(0).getId() == user1.getId());
+
      }
 
 

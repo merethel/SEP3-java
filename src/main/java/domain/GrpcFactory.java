@@ -36,7 +36,8 @@ public class GrpcFactory {
         return event;
     }
 
-    public static Event fromEventCreationDtoMessageToEvent(EventCreationDtoMessage eventToMap) {
+    public static Event fromEventCreationDtoMessageToEvent(EventCreationDtoMessage eventToMap)
+    {
         User userWithName = new User();
         userWithName.setUsername(eventToMap.getUsername());
         Event event = new Event(

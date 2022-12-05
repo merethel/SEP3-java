@@ -5,13 +5,16 @@ DaoInterfaces\UserDaoInterface.class
 event\ListEventMessage$Builder.class
 event\UserMessage$1.class
 event\EventMessage$Builder.class
+event\CriteriaDtoMessageOrBuilder.class
 event\DateTimeMessage$Builder.class
 event\UserMessageOrBuilder.class
 event\EventServiceGrpc.class
+event\CriteriaDtoMessage$Builder.class
 event\EventServiceGrpc$EventServiceDescriptorSupplier.class
 domain\User.class
 event\EventServiceGrpc$EventServiceBlockingStub.class
 event\ListEventMessageOrBuilder.class
+event\CriteriaDtoMessage$1.class
 event\EventMessage.class
 event\UserMessage$Builder.class
 event\DateTimeMessage.class
@@ -21,6 +24,7 @@ domain\Event.class
 event\EventServiceGrpc$EventServiceStub.class
 event\EventCreationDtoMessageOrBuilder.class
 event\DateTimeMessageOrBuilder.class
+event\CriteriaDtoMessage.class
 event\DateTimeMessage$1.class
 event\EventServiceGrpc$EventServiceImplBase.class
 services\EventServiceImpl.class
