@@ -1,5 +1,7 @@
 package services;
 
+import DaoInterfaces.EventDaoInterface;
+import DaoInterfaces.UserDaoInterface;
 import Daos.EventDao;
 import Daos.UserDao;
 import domain.Event;
@@ -13,8 +15,8 @@ import java.util.List;
 public class EventServiceImpl extends EventServiceGrpc.EventServiceImplBase {
 
     //private final EventDao eventDao;
-    private final EventDao eventDao;
-    private final UserDao userDao;
+    private final EventDaoInterface eventDao;
+    private final UserDaoInterface userDao;
 
     public EventServiceImpl(EventDao eventDao, UserDao userDao) {
         this.eventDao = eventDao;
