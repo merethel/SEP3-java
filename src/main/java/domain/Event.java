@@ -13,7 +13,7 @@ public class Event {
     @SequenceGenerator(name = "event_seq", allocationSize = 1)
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "event_seq")
     private int id;
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne()
     public User user;
     public String title;
     public String description;

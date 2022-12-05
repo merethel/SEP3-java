@@ -15,7 +15,7 @@ public class User {
     private String email;
     private String role;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.PERSIST})
     @JoinColumn(name="user_id")
     private List<Event> events;
 
@@ -50,6 +50,7 @@ public class User {
     public String getPassword() {
         return password;
     }
+
 
     public void setPassword(String password) {
         this.password = password;
