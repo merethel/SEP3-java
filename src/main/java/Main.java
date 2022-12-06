@@ -1,5 +1,3 @@
-package org.example;
-
 import Daos.EventDao;
 import Daos.UserDao;
 import shared.model.Event;
