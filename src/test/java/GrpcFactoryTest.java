@@ -2,13 +2,11 @@ import com.google.type.DateTime;
 import domain.Event;
 import domain.GrpcFactory;
 import domain.User;
-import event.DateTimeMessage;
-import event.EventCreationDtoMessage;
-import event.EventMessage;
-import event.UserMessage;
+import event.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -55,7 +53,7 @@ public class GrpcFactoryTest
                         .setYear(2022)
                         .setMonth(12)
                         .build())
-                .setCategory("catergory")
+                .setCategory("category")
                 .setArea("area")
                 .build();
 
@@ -76,6 +74,52 @@ public class GrpcFactoryTest
     }
 
     @Test
+    public void TestFromDateTimeToDateTimeMessage()
+    {
+        //Arrange
+        DateTime dateTime = DateTime.newBuilder()
+                .setDay(1)
+                .setMonth(1)
+                .setYear(2023)
+                .setHours(12)
+                .setMinutes(12)
+                .build();
+
+        //Act
+        DateTimeMessage dateTimeMessage = GrpcFactory.fromDateTimeToDateTimeMessage(dateTime);
+
+        //Assert
+        assertEquals(dateTime.getDay(), dateTimeMessage.getDay());
+        assertEquals(dateTime.getMonth(), dateTimeMessage.getMonth());
+        assertEquals(dateTime.getYear(), dateTimeMessage.getYear());
+        assertEquals(dateTime.getHours(), dateTimeMessage.getHour());
+        assertEquals(dateTime.getMinutes(), dateTimeMessage.getMin());
+    }
+
+    @Test
+    public void TestFromDateTimeMessageToDateTime()
+    {
+        //Arrange
+        DateTimeMessage dateTimeMessage = DateTimeMessage.newBuilder()
+                .setDay(1)
+                .setMonth(1)
+                .setYear(2023)
+                .setHour(12)
+                .setMin(12)
+                .build();
+
+        //Act
+        DateTime dateTime = GrpcFactory.fromDateTimeMessageToDateTime(dateTimeMessage);
+
+        //Assert
+        assertEquals(dateTimeMessage.getDay(), dateTime.getDay());
+        assertEquals(dateTimeMessage.getMonth(), dateTime.getMonth());
+        assertEquals(dateTimeMessage.getYear(), dateTime.getYear());
+        assertEquals(dateTimeMessage.getHour(), dateTime.getHours());
+        assertEquals(dateTimeMessage.getMin(), dateTime.getMinutes());
+    }
+
+    @Test
     public void TestFromUserToMessage()
     {
         //Arrange
@@ -92,5 +136,46 @@ public class GrpcFactoryTest
         assertEquals(user.getPassword(), userMessage.getPassword());
     }
 
+    @Test
+    public void TestFromUserCreationDtoMessageToUser()
+    {
+        //Arrange
+        UserCreationDtoMessage userCreationDtoMessage = UserCreationDtoMessage.newBuilder()
+                .setUsername("Testy")
+                .setPassword("Testington")
+                .setEmail("test@testy.dk")
+                .setRole("User")
+                .build();
 
+        //Act
+        User user = GrpcFactory.fromUserCreationDtoMessageToUser(userCreationDtoMessage);
+
+        //Assert
+        assertEquals(userCreationDtoMessage.getUsername(), user.getUsername());
+        assertEquals(userCreationDtoMessage.getPassword(), user.getPassword());
+        assertEquals(userCreationDtoMessage.getEmail(), user.getEmail());
+        assertEquals(userCreationDtoMessage.getRole(), user.getRole());
+    }
+
+    @Test
+    public void TestFromEventListToEventListMessage()
+    {
+        //Arrange
+        User user1 = new User("Username1", "password1", "email1@email.dk", "User");
+
+        Event testEvent = new Event(user1, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build(),"Category","Area", new ArrayList<>());
+        Event testEvent2 = new Event(user1, "TestTitle2", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(2).setMonth(1).setYear(2023).setHours(12).build(),"Category","Area", new ArrayList<>());
+        Event testEvent3 = new Event(user1, "TestTitle3", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(3).setMonth(1).setYear(2023).setHours(12).build(),"Category","Area", new ArrayList<>());
+
+        List<Event> events = new ArrayList<>();
+
+        events.add(testEvent);
+        events.add(testEvent2);
+        events.add(testEvent3);
+
+        //Act
+
+        //Assert
+
+    }
 }
