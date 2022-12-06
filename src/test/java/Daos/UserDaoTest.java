@@ -1,8 +1,8 @@
 package Daos;
 
 import com.google.type.DateTime;
-import domain.Event;
-import domain.User;
+import shared.model.Event;
+import shared.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -10,7 +10,6 @@ import org.hibernate.query.Query;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

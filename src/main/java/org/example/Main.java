@@ -2,8 +2,8 @@ package org.example;
 
 import Daos.EventDao;
 import Daos.UserDao;
-import domain.Event;
-import domain.User;
+import shared.model.Event;
+import shared.model.User;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import org.hibernate.SessionFactory;

@@ -1,7 +1,7 @@
 package Daos;
 
 import DaoInterfaces.UserDaoInterface;
-import domain.User;
+import shared.model.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

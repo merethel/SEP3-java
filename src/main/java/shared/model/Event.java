@@ -1,4 +1,4 @@
-package domain;
+package shared.model;
 
 import com.google.type.DateTime;
 

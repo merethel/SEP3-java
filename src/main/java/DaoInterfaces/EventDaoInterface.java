@@ -1,6 +1,6 @@
 package DaoInterfaces;
 
-import domain.Event;
+import shared.model.Event;
 import event.CriteriaDtoMessage;
 
 import java.util.List;

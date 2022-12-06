@@ -1,8 +1,8 @@
 package Daos;
 
 import DaoInterfaces.EventDaoInterface;
-import domain.Event;
-import domain.User;
+import shared.model.Event;
+import shared.model.User;
 import event.CriteriaDtoMessage;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

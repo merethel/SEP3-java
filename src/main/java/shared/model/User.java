@@ -1,4 +1,4 @@
-package domain;
+package shared.model;
 
 import javax.persistence.*;
 import java.util.List;

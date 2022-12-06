@@ -1,7 +1,7 @@
 import com.google.type.DateTime;
-import domain.Event;
-import domain.GrpcFactory;
-import domain.User;
+import shared.model.Event;
+import shared.GrpcFactory;
+import shared.model.User;
 import event.DateTimeMessage;
 import event.EventCreationDtoMessage;
 import event.EventMessage;

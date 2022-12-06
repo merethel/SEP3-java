@@ -4,8 +4,8 @@ import DaoInterfaces.EventDaoInterface;
 import DaoInterfaces.UserDaoInterface;
 import Daos.EventDao;
 import Daos.UserDao;
-import domain.Event;
-import domain.GrpcFactory;
+import shared.model.Event;
+import shared.GrpcFactory;
 import event.*;
 
 import io.grpc.stub.StreamObserver;
@@ -56,7 +56,6 @@ public class EventServiceImpl extends EventServiceGrpc.EventServiceImplBase {
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
     }
-
 
    @Override
    public void cancel(IntRequest request, StreamObserver<EventMessage> responseObserver) {

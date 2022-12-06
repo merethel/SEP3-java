@@ -1,7 +1,6 @@
 package DaoInterfaces;
 
-import domain.Event;
-import domain.User;
+import shared.model.User;
 
 public interface UserDaoInterface {
     User create(User user);

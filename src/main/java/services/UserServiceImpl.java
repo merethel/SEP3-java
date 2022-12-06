@@ -1,9 +1,8 @@
 package services;
 
-import Daos.EventDao;
 import Daos.UserDao;
-import domain.GrpcFactory;
-import domain.User;
+import shared.GrpcFactory;
+import shared.model.User;
 import event.*;
 import io.grpc.stub.StreamObserver;
 

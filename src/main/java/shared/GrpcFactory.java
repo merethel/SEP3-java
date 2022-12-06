@@ -1,6 +1,8 @@
-package domain;
+package shared;
 
 import com.google.type.DateTime;
+import shared.model.Event;
+import shared.model.User;
 import event.*;
 
 import java.util.ArrayList;
