@@ -62,5 +62,4 @@ event\UserCreationDtoMessage.class
 event\UserCreationDtoMessageOrBuilder.class
 event\EventServiceGrpc$EventServiceFutureStub.class
 event\UserServiceGrpc$UserServiceDescriptorSupplier.class
-domain\GrpcFactory.class
 event\AddAttendeeRequest.class

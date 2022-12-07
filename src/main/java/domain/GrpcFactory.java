@@ -109,4 +109,7 @@ public class GrpcFactory {
         return listToReturn;
     }
 
+
+    //skal der implementeres noget her ift delete user eller bruger man bare from user to messenger?!
+
 }

@@ -21,6 +21,8 @@ service UserService {
   rpc create (UserCreationDtoMessage) returns (UserMessage);
   rpc getById (IntRequest) returns (UserMessage);
   rpc getByUsername (StringRequest) returns (UserMessage);
+  rpc deleteUser (IntRequest) returns (UserMessage);
+
 }
 
 // The request message containing the user's name.
@@ -94,3 +96,4 @@ message CriteriaDtoMessage {
   string category = 2;
   string area = 3;
 }
+

@@ -69,7 +69,6 @@ public class GrpcFactoryTest
         assertEquals(dtoMessage.getDateTime().getYear(), eventTest.getDateTime().getYear());
         assertEquals(dtoMessage.getCategory(), eventTest.getCategory());
         assertEquals(dtoMessage.getArea(), eventTest.getArea());
-        //nogle vil være null og dem tester vi bare ikke
 
     }
 
@@ -174,8 +173,11 @@ public class GrpcFactoryTest
         events.add(testEvent3);
 
         //Act
+        ListEventMessage ListEventMessage = GrpcFactory.fromEventListToEventListMessage(events);
 
         //Assert
-
-    }
+        assertEquals(events.get(0).title, ListEventMessage.getEventsList().get(0).getTitle());
+        assertEquals(events.get(2).area, ListEventMessage.getEventsList().get(2).getArea());
+        assertEquals(events.get(1).getId(), ListEventMessage.getEventsList().get(1).getId());
+   }
 }

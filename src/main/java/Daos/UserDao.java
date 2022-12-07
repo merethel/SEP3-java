@@ -104,4 +104,31 @@ public class UserDao implements UserDaoInterface {
 
         return userToReturn;
     }
+
+    @Override
+    public User deleteUser(int userId) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        User userToDelete = null;
+
+        try {
+            transaction = session.beginTransaction();
+            System.out.println(userId);
+            userToDelete = session.get(User.class, userId);
+            session.delete(userToDelete);
+            transaction.commit();
+
+        } catch (HibernateException ex) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            Logger.getLogger("con").info("Exception: " + ex.getMessage());
+            ex.printStackTrace(System.err);
+        } finally {
+            session.close();
+
+        }
+        return userToDelete;
+    }
+
 }

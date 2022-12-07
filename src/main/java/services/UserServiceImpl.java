@@ -1,6 +1,5 @@
 package services;
 
-import Daos.EventDao;
 import Daos.UserDao;
 import domain.GrpcFactory;
 import domain.User;
@@ -43,4 +42,15 @@ public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
     }
+
+
+    @Override
+    public void deleteUser(IntRequest request, StreamObserver<UserMessage> responseObserver) {
+        User userToDelete = userDao.deleteUser(request.getInt());
+        UserMessage reply = GrpcFactory.fromUserToMessage(userToDelete);
+        responseObserver.onNext(reply);
+        responseObserver.onCompleted();
+
+    }
+
 }
