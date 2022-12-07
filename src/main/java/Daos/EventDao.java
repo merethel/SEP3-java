@@ -88,13 +88,20 @@ public class EventDao implements EventDaoInterface {
             Root<Event> eventRoot = criteria.from(Event.class);
 
 
-            if(criteriaDto.getOwnerId() != 0)
+            if (!criteriaDto.getArea().equals("") && !criteriaDto.getCategory().equals(""))
+            {criteria.where(builder.and(builder.equal(eventRoot.get("area"), criteriaDto.getArea()),
+                    builder.equal(eventRoot.get("category"), criteriaDto.getCategory())));
+                System.out.println("Made criteria with : " + criteriaDto.getArea() + " " + criteriaDto.getCategory());
+            }
+            else if(criteriaDto.getOwnerId() != 0)
                 criteria.where(builder.equal(eventRoot.get("user"), criteriaDto.getOwnerId()));
-            if(!criteriaDto.getArea().equals(""))
+            else if(!criteriaDto.getArea().equals(""))
                 criteria.where(builder.equal(eventRoot.get("area"), criteriaDto.getArea()));
-            if(!criteriaDto.getCategory().equals(""))
+            else if(!criteriaDto.getCategory().equals(""))
                 criteria.where(builder.equal(eventRoot.get("category"), criteriaDto.getCategory()));
 
+
+            System.out.println("DEN HAR LAVET DET HERRRR: " + criteriaDto.getCategory() + " og " + criteriaDto.getArea());
 
             eventToReturn = session.createQuery(criteria).getResultList();
 
