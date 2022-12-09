@@ -50,8 +50,7 @@ public class GrpcFactory {
                 fromDateTimeMessageToDateTime(eventToMap.getDateTime()),
                 eventToMap.getCategory(),
                 eventToMap.getArea(),
-                new ArrayList<>(),
-                false
+                new ArrayList<>()
         );
         return event;
     }
