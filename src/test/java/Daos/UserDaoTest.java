@@ -119,9 +119,8 @@ public class UserDaoTest {
     @Test
     public void testCreate()
     {
-        //Arrnge
-        User user = new User ("Username1", "PasswordTest", "testEmail@test.com", "User");
-
+        //Arrange
+        User user = createOneUser();
         //Act
         User createdUser = userDao.create(user);
 
@@ -133,14 +132,13 @@ public class UserDaoTest {
     public void testGetById()
     {
         //Arrange
-        User user = new User();
-        user.setId(2);
+        User user = createOneUser();
 
         //Axt
         User created = userDao.getById(user.getId());
 
         //Assert
-        assertEquals(2, 2);
+        assertTrue(created.getId()==user.getId());
 
     }
 
@@ -148,12 +146,12 @@ public class UserDaoTest {
     public void getByUsername()
     {
         //Arrange
-        User user = new User("Username1", "password1", "email1@email.dk", "User");
+        User user = createOneUser();
 
         //Act
         User getByUsername = userDao.getByUsername(user.getUsername());
 
         //Assert
-        assertEquals("Username1", "Username1");
+        assertEquals(createOneUser().getUsername(),getByUsername.getUsername());
     }
 }
