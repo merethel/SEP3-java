@@ -114,10 +114,11 @@ public class EventDao implements EventDaoInterface {
             else if(!criteriaDto.getCategory().equals(""))
                 criteria.where(builder.and(builder.equal(eventRoot.get("category"), criteriaDto.getCategory()), builder.equal(eventRoot.get("isCancelled"), false)));
             else if(criteriaDto.getIsCancelled() && criteriaDto.getAttendee() != 0) {
-                User user = session.get(User.class, criteriaDto.getAttendee());
                 criteria.where(builder.and(builder.equal(eventRoot.get("isCancelled"), criteriaDto.getIsCancelled())
-                        //,builder.isMember("s", eventRoot.get("attendees"))
                 ));
+            } else
+            {
+                criteria.where(builder.equal(eventRoot.get("isCancelled"), false));
             }
 
 
