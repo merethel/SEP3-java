@@ -18,6 +18,7 @@ public class Main {
         Configuration configuration = new org.hibernate.cfg.Configuration();
         configuration.configure("hibernate.cfg.xml");
 
+        configuration.setProperty("hibernate.default_schema", "test");
         configuration.addAnnotatedClass(Event.class);
         configuration.addAnnotatedClass(User.class);
 

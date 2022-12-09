@@ -13,6 +13,7 @@ import org.jboss.logging.Logger;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.Collection;
 import java.util.List;
 
 public class EventDao implements EventDaoInterface {
@@ -115,7 +116,7 @@ public class EventDao implements EventDaoInterface {
             else if(criteriaDto.getIsCancelled() && criteriaDto.getAttendee() != 0) {
                 User user = session.get(User.class, criteriaDto.getAttendee());
                 criteria.where(builder.and(builder.equal(eventRoot.get("isCancelled"), criteriaDto.getIsCancelled())
-                        ,builder.isMember(user, eventRoot.get("attendees"))
+                        //,builder.isMember("s", eventRoot.get("attendees"))
                 ));
             }
 

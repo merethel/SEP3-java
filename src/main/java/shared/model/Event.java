@@ -3,6 +3,7 @@ package shared.model;
 import com.google.type.DateTime;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -28,7 +29,7 @@ public class Event {
 
 
     @ManyToMany(fetch = FetchType.EAGER)
-    public List<User> attendees;
+    public Collection<User> attendees;
 
     public Event() {
     }
@@ -71,7 +72,7 @@ public class Event {
         return location;
     }
 
-    public List<User> getAttendees() {
+    public Collection<User> getAttendees() {
         return attendees;
     }
 
