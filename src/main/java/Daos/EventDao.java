@@ -172,6 +172,5 @@ public class EventDao implements EventDaoInterface {
 
         return eventToCancel;
 
-
     }
 }
