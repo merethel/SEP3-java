@@ -44,8 +44,6 @@ public class UserDao implements UserDaoInterface {
         }
 
         return userToReturn;
-
-
     }
 
     @Override
@@ -101,7 +99,6 @@ public class UserDao implements UserDaoInterface {
         } finally {
             session.close();
         }
-
         return userToReturn;
     }
 
