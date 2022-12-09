@@ -59,9 +59,9 @@ public class UserDaoTest {
         session.save(user2);
         session.save(user3);
 
-        session.save(new Event(user1, "Title1", "Description1", "Location1", dateTime,"Category","Area", new ArrayList<>()));
-        session.save(new Event(user2, "Title2", "Description2", "Location2", dateTime,"Category","Area", new ArrayList<>()));
-        session.save(new Event(user3, "Title3", "Description3", "Location3", dateTime,"Category","Area", new ArrayList<>()));
+        session.save(new Event(user1, "Title1", "Description1", "Location1", dateTime,"Category","Area", new ArrayList<>(), false));
+        session.save(new Event(user2, "Title2", "Description2", "Location2", dateTime,"Category","Area", new ArrayList<>(), false));
+        session.save(new Event(user3, "Title3", "Description3", "Location3", dateTime,"Category","Area", new ArrayList<>(), false));
         session.getTransaction().commit();
     }
 

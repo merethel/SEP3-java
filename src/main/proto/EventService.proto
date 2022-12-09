@@ -22,7 +22,6 @@ service UserService {
   rpc getById (IntRequest) returns (UserMessage);
   rpc getByUsername (StringRequest) returns (UserMessage);
   rpc deleteUser (IntRequest) returns (UserMessage);
-
 }
 
 // The request message containing the user's name.
@@ -95,5 +94,7 @@ message CriteriaDtoMessage {
   int32 ownerId = 1;
   string category = 2;
   string area = 3;
-}
+  bool isCancelled = 4;
+  int32 Attendee = 5;
 
+}

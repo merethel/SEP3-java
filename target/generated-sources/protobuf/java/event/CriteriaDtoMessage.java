@@ -18,6 +18,8 @@ public  final class CriteriaDtoMessage extends
     ownerId_ = 0;
     category_ = "";
     area_ = "";
+    isCancelled_ = false;
+    attendee_ = 0;
   }
 
   @java.lang.Override
@@ -60,6 +62,16 @@ public  final class CriteriaDtoMessage extends
             java.lang.String s = input.readStringRequireUtf8();
 
             area_ = s;
+            break;
+          }
+          case 32: {
+
+            isCancelled_ = input.readBool();
+            break;
+          }
+          case 40: {
+
+            attendee_ = input.readInt32();
             break;
           }
         }
@@ -162,6 +174,24 @@ public  final class CriteriaDtoMessage extends
     }
   }
 
+  public static final int ISCANCELLED_FIELD_NUMBER = 4;
+  private boolean isCancelled_;
+  /**
+   * <code>bool isCancelled = 4;</code>
+   */
+  public boolean getIsCancelled() {
+    return isCancelled_;
+  }
+
+  public static final int ATTENDEE_FIELD_NUMBER = 5;
+  private int attendee_;
+  /**
+   * <code>int32 Attendee = 5;</code>
+   */
+  public int getAttendee() {
+    return attendee_;
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -183,6 +213,12 @@ public  final class CriteriaDtoMessage extends
     if (!getAreaBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 3, area_);
     }
+    if (isCancelled_ != false) {
+      output.writeBool(4, isCancelled_);
+    }
+    if (attendee_ != 0) {
+      output.writeInt32(5, attendee_);
+    }
   }
 
   public int getSerializedSize() {
@@ -199,6 +235,14 @@ public  final class CriteriaDtoMessage extends
     }
     if (!getAreaBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, area_);
+    }
+    if (isCancelled_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(4, isCancelled_);
+    }
+    if (attendee_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(5, attendee_);
     }
     memoizedSize = size;
     return size;
@@ -222,6 +266,10 @@ public  final class CriteriaDtoMessage extends
         .equals(other.getCategory());
     result = result && getArea()
         .equals(other.getArea());
+    result = result && (getIsCancelled()
+        == other.getIsCancelled());
+    result = result && (getAttendee()
+        == other.getAttendee());
     return result;
   }
 
@@ -238,6 +286,11 @@ public  final class CriteriaDtoMessage extends
     hash = (53 * hash) + getCategory().hashCode();
     hash = (37 * hash) + AREA_FIELD_NUMBER;
     hash = (53 * hash) + getArea().hashCode();
+    hash = (37 * hash) + ISCANCELLED_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getIsCancelled());
+    hash = (37 * hash) + ATTENDEE_FIELD_NUMBER;
+    hash = (53 * hash) + getAttendee();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -373,6 +426,10 @@ public  final class CriteriaDtoMessage extends
 
       area_ = "";
 
+      isCancelled_ = false;
+
+      attendee_ = 0;
+
       return this;
     }
 
@@ -398,6 +455,8 @@ public  final class CriteriaDtoMessage extends
       result.ownerId_ = ownerId_;
       result.category_ = category_;
       result.area_ = area_;
+      result.isCancelled_ = isCancelled_;
+      result.attendee_ = attendee_;
       onBuilt();
       return result;
     }
@@ -449,6 +508,12 @@ public  final class CriteriaDtoMessage extends
       if (!other.getArea().isEmpty()) {
         area_ = other.area_;
         onChanged();
+      }
+      if (other.getIsCancelled() != false) {
+        setIsCancelled(other.getIsCancelled());
+      }
+      if (other.getAttendee() != 0) {
+        setAttendee(other.getAttendee());
       }
       onChanged();
       return this;
@@ -636,6 +701,58 @@ public  final class CriteriaDtoMessage extends
   checkByteStringIsUtf8(value);
       
       area_ = value;
+      onChanged();
+      return this;
+    }
+
+    private boolean isCancelled_ ;
+    /**
+     * <code>bool isCancelled = 4;</code>
+     */
+    public boolean getIsCancelled() {
+      return isCancelled_;
+    }
+    /**
+     * <code>bool isCancelled = 4;</code>
+     */
+    public Builder setIsCancelled(boolean value) {
+      
+      isCancelled_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>bool isCancelled = 4;</code>
+     */
+    public Builder clearIsCancelled() {
+      
+      isCancelled_ = false;
+      onChanged();
+      return this;
+    }
+
+    private int attendee_ ;
+    /**
+     * <code>int32 Attendee = 5;</code>
+     */
+    public int getAttendee() {
+      return attendee_;
+    }
+    /**
+     * <code>int32 Attendee = 5;</code>
+     */
+    public Builder setAttendee(int value) {
+      
+      attendee_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 Attendee = 5;</code>
+     */
+    public Builder clearAttendee() {
+      
+      attendee_ = 0;
       onChanged();
       return this;
     }

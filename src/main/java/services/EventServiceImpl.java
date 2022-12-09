@@ -66,5 +66,4 @@ public class EventServiceImpl extends EventServiceGrpc.EventServiceImplBase {
         responseObserver.onCompleted();
 
     }
-
 }

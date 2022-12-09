@@ -31,4 +31,14 @@ public interface CriteriaDtoMessageOrBuilder extends
    */
   com.google.protobuf.ByteString
       getAreaBytes();
+
+  /**
+   * <code>bool isCancelled = 4;</code>
+   */
+  boolean getIsCancelled();
+
+  /**
+   * <code>int32 Attendee = 5;</code>
+   */
+  int getAttendee();
 }

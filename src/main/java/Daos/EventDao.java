@@ -58,7 +58,12 @@ public class EventDao implements EventDaoInterface {
 
         try {
             transaction = session.beginTransaction();
-            eventToReturn = session.get(Event.class, eventId);
+
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Event> criteria = builder.createQuery(Event.class);
+            Root<Event> eventRoot = criteria.from(Event.class);
+            criteria.where(builder.and(builder.equal(eventRoot.get("eventId"), eventId), builder.equal(eventRoot.get("isCancelled"), false)));
+
             transaction.commit();
 
         } catch (HibernateException ex) {
@@ -79,6 +84,7 @@ public class EventDao implements EventDaoInterface {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
         List<Event> eventToReturn = null;
+        List<Event> eventList = null;
 
         try {
             transaction = session.beginTransaction();
@@ -88,22 +94,42 @@ public class EventDao implements EventDaoInterface {
             Root<Event> eventRoot = criteria.from(Event.class);
 
 
+
+
             if (!criteriaDto.getArea().equals("") && !criteriaDto.getCategory().equals(""))
-            {criteria.where(builder.and(builder.equal(eventRoot.get("area"), criteriaDto.getArea()),
-                    builder.equal(eventRoot.get("category"), criteriaDto.getCategory())));
+            {criteria.where(builder.and(
+                    builder.equal(eventRoot.get("area"), criteriaDto.getArea()),
+                    builder.equal(eventRoot.get("category"), criteriaDto.getCategory()),
+                            builder.equal(eventRoot.get("isCancelled"), false))
+
+                    );
                 System.out.println("Made criteria with : " + criteriaDto.getArea() + " " + criteriaDto.getCategory());
             }
+
             else if(criteriaDto.getOwnerId() != 0)
-                criteria.where(builder.equal(eventRoot.get("user"), criteriaDto.getOwnerId()));
+                criteria.where(builder.and(builder.equal(eventRoot.get("user"), criteriaDto.getOwnerId()), builder.equal(eventRoot.get("isCancelled"), false)));
             else if(!criteriaDto.getArea().equals(""))
-                criteria.where(builder.equal(eventRoot.get("area"), criteriaDto.getArea()));
+                criteria.where(builder.and(builder.equal(eventRoot.get("area"), criteriaDto.getArea()), builder.equal(eventRoot.get("isCancelled"), false)));
             else if(!criteriaDto.getCategory().equals(""))
-                criteria.where(builder.equal(eventRoot.get("category"), criteriaDto.getCategory()));
+                criteria.where(builder.and(builder.equal(eventRoot.get("category"), criteriaDto.getCategory()), builder.equal(eventRoot.get("isCancelled"), false)));
+            else if(criteriaDto.getIsCancelled() && criteriaDto.getAttendee() != 0) {
+                User user = session.get(User.class, criteriaDto.getAttendee());
+                criteria.where(builder.and(builder.equal(eventRoot.get("isCancelled"), criteriaDto.getIsCancelled())
+                        ,builder.isMember(user, eventRoot.get("attendees"))
+                ));
+            }
 
 
-            System.out.println("DEN HAR LAVET DET HERRRR: " + criteriaDto.getCategory() + " og " + criteriaDto.getArea());
+
+            System.out.println("DEN HAR LAVET DET HERRRR:\nOwnerId: " + criteriaDto.getOwnerId() +
+                            "\nArea: " + criteriaDto.getArea() +
+                            "\nCategory: " + criteriaDto.getCategory() +
+                            "\nIsCancelled: " + criteriaDto.getIsCancelled() +
+                            "\nAttendee: " + criteriaDto.getAttendee());
 
             eventToReturn = session.createQuery(criteria).getResultList();
+
+
 
             transaction.commit();
 
@@ -152,12 +178,19 @@ public class EventDao implements EventDaoInterface {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
         Event eventToCancel = null;
+        Event eventToReturn = null;
 
         try {
             transaction = session.beginTransaction();
             System.out.println(eventId);
             eventToCancel = session.get(Event.class, eventId);
             session.delete(eventToCancel);
+
+            eventToCancel.setCancelled(true);
+            int eventToReturnId = (int) session.save(eventToCancel);
+
+            eventToReturn = session.get(Event.class, eventToReturnId);
+
             transaction.commit();
 
         } catch (HibernateException ex) {
@@ -170,8 +203,6 @@ public class EventDao implements EventDaoInterface {
             session.close();
         }
 
-        return eventToCancel;
-
-
+        return eventToReturn;
     }
 }

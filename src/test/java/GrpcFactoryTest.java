@@ -22,7 +22,7 @@ public class GrpcFactoryTest
         User user1 = new User("Username1", "password1", "email1@email.dk", "User");
         ArrayList arrayListAttendees = new ArrayList<>();
         arrayListAttendees.add(user1);
-        Event testEvent = new Event(user1, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build(),"Category","Area", arrayListAttendees);
+        Event testEvent = new Event(user1, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build(),"Category","Area", arrayListAttendees, false);
 
         //Act
         EventMessage eventMessage = GrpcFactory.fromEventToMessage(testEvent);

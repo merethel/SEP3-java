@@ -57,9 +57,9 @@ public class EventDaoTest {
           session.save(user2);
           session.save(user3);
 
-          session.save(new Event(user1, "Title1", "Description1", "Location1", dateTime,"Category","Area", new ArrayList<>()));
-          session.save(new Event(user2, "Title2", "Description2", "Location2", dateTime, "Category","Area", new ArrayList<>()));
-          session.save(new Event(user3, "Title3", "Description3", "Location3", dateTime, "Category","Area", new ArrayList<>()));
+          session.save(new Event(user1, "Title1", "Description1", "Location1", dateTime,"Category","Area", new ArrayList<>(), false));
+          session.save(new Event(user2, "Title2", "Description2", "Location2", dateTime, "Category","Area", new ArrayList<>(), false));
+          session.save(new Event(user3, "Title3", "Description3", "Location3", dateTime, "Category","Area", new ArrayList<>(), false));
           session.getTransaction().commit();
      }
 
@@ -86,7 +86,7 @@ public class EventDaoTest {
           //Arrange happens in before all and before each.
           User user = new User();
           user.setUsername("Username1");
-          Event eventToCreate = new Event(user, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build(),"Category","Area", new ArrayList<>());
+          Event eventToCreate = new Event(user, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build(),"Category","Area", new ArrayList<>(), false);
           session.beginTransaction();
           session.save(user);
           session.getTransaction().commit();
@@ -105,7 +105,7 @@ public class EventDaoTest {
           //Arrange happens in before all and before each.
           User user = new User();
           user.setUsername("Username1");
-          Event eventToCreate = new Event(user, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build(),"Category","Area", new ArrayList<>());
+          Event eventToCreate = new Event(user, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build(),"Category","Area", new ArrayList<>(), false);
           int id = (int) session.save(eventToCreate);
           session.beginTransaction();
           session.save(user);
@@ -123,7 +123,7 @@ public class EventDaoTest {
      {
           //Arrange
           User user1 = new User("Username1", "password1", "email1@email.dk", "User");
-          Event eventToCreate = new Event(user1, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build(),"Category","Area", new ArrayList<>());
+          Event eventToCreate = new Event(user1, "TestTitle", "TestDescription", "TestLocation", DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build(),"Category","Area", new ArrayList<>(), false);
           session.beginTransaction();
           session.save(user1);
           session.getTransaction().commit();

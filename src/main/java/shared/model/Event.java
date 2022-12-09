@@ -23,6 +23,10 @@ public class Event {
     public String area;
 
 
+
+    public boolean isCancelled;
+
+
     @ManyToMany(fetch = FetchType.EAGER)
     public List<User> attendees;
 
@@ -30,7 +34,7 @@ public class Event {
     }
 
 
-    public Event(User user, String title, String description, String location, DateTime dateTime, String category, String area, List<User> attendees) {
+    public Event(User user, String title, String description, String location, DateTime dateTime, String category, String area, List<User> attendees, boolean isCancelled) {
         this.user = user;
         this.title = title;
         this.description = description;
@@ -39,6 +43,7 @@ public class Event {
         this.category = category;
         this.area = area;
         this.attendees = attendees;
+        this.isCancelled = isCancelled;
     }
 
     //Getters and Setters
@@ -88,5 +93,14 @@ public class Event {
 
     public void setArea(String area) {
         this.area = area;
+    }
+
+    public boolean isCancelled() {
+        return isCancelled;
+    }
+
+
+    public void setCancelled(boolean cancelled) {
+        isCancelled = cancelled;
     }
 }

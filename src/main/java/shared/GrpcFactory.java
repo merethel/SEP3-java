@@ -50,7 +50,8 @@ public class GrpcFactory {
                 fromDateTimeMessageToDateTime(eventToMap.getDateTime()),
                 eventToMap.getCategory(),
                 eventToMap.getArea(),
-                new ArrayList<>()
+                new ArrayList<>(),
+                false
         );
         return event;
     }
@@ -103,8 +104,11 @@ public class GrpcFactory {
     public static ListEventMessage fromEventListToEventListMessage(List<Event> events) {
         ListEventMessage listToReturn = null;
         ListEventMessage.Builder builder = ListEventMessage.newBuilder();
-        for (Event event : events) {
-            builder.addEvents(fromEventToMessage(event));
+        if (events != null)
+        {
+            for (Event event : events) {
+                builder.addEvents(fromEventToMessage(event));
+            }
         }
         listToReturn = builder.build();
 
