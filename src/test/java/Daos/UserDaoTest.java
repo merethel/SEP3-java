@@ -42,8 +42,42 @@ public class UserDaoTest {
         userDao = new UserDao(sessionFactory);
     }
 
-    @BeforeEach
-    public void repopulateDummyDatabase()
+    private Event createOneEvent(){
+        //Arrange
+        User user = createOneUser();
+        Event eventToCreate = new Event(
+                user,
+                "TestTitle",
+                "TestDescription",
+                "TestLocation",
+                DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build(),
+                "Category",
+                "Area",
+                new ArrayList<>());
+
+        session.beginTransaction();
+        session.save(eventToCreate);
+        session.getTransaction().commit();
+
+        return eventToCreate;
+    }
+
+    private User createOneUser(){
+        //Arrange
+        User user = new User(
+                "Username1",
+                "password1",
+                "email1@email.dk",
+                "User"
+        );
+        session.beginTransaction();
+        session.save(user);
+        session.getTransaction().commit();
+
+        return user;
+    }
+
+    public void createManyEvents()
     {
         DateTime dateTime = DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build();
 
@@ -59,9 +93,9 @@ public class UserDaoTest {
         session.save(user2);
         session.save(user3);
 
-        session.save(new Event(user1, "Title1", "Description1", "Location1", dateTime,"Category","Area", new ArrayList<>(), false));
-        session.save(new Event(user2, "Title2", "Description2", "Location2", dateTime,"Category","Area", new ArrayList<>(), false));
-        session.save(new Event(user3, "Title3", "Description3", "Location3", dateTime,"Category","Area", new ArrayList<>(), false));
+        session.save(new Event(user1, "Title1", "Description1", "Location1", dateTime,"Category1","Area1", new ArrayList<>()));
+        session.save(new Event(user2, "Title2", "Description2", "Location2", dateTime, "Category2","Area2", new ArrayList<>()));
+        session.save(new Event(user3, "Title3", "Description3", "Location3", dateTime, "Category3","Area3", new ArrayList<>()));
         session.getTransaction().commit();
     }
 
@@ -85,9 +119,8 @@ public class UserDaoTest {
     @Test
     public void testCreate()
     {
-        //Arrnge
-        User user = new User ("Username1", "PasswordTest", "testEmail@test.com", "User");
-
+        //Arrange
+        User user = createOneUser();
         //Act
         User createdUser = userDao.create(user);
 
@@ -99,14 +132,13 @@ public class UserDaoTest {
     public void testGetById()
     {
         //Arrange
-        User user = new User();
-        user.setId(2);
+        User user = createOneUser();
 
         //Axt
         User created = userDao.getById(user.getId());
 
         //Assert
-        assertEquals(2, 2);
+        assertTrue(created.getId()==user.getId());
 
     }
 
@@ -114,12 +146,12 @@ public class UserDaoTest {
     public void getByUsername()
     {
         //Arrange
-        User user = new User("Username1", "password1", "email1@email.dk", "User");
+        User user = createOneUser();
 
         //Act
         User getByUsername = userDao.getByUsername(user.getUsername());
 
         //Assert
-        assertEquals("Username1", "Username1");
+        assertEquals(createOneUser().getUsername(),getByUsername.getUsername());
     }
 }
