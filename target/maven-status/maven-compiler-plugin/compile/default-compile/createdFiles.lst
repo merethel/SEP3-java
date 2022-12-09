@@ -11,7 +11,6 @@ DaoInterfaces\UserDaoInterface.class
 event\StringRequest$1.class
 event\UserCreationDtoMessage$1.class
 event\ListEventMessage$Builder.class
-org\example\Main.class
 DaoInterfaces\EventDaoInterface.class
 event\UserMessage$1.class
 event\EventMessage$Builder.class
@@ -28,7 +27,6 @@ event\EventServiceGrpc.class
 event\CriteriaDtoMessage$Builder.class
 event\EventServiceGrpc$EventServiceDescriptorSupplier.class
 event\UserCreationDtoMessage$Builder.class
-domain\User.class
 event\EventServiceGrpc$EventServiceBlockingStub.class
 Daos\UserDao.class
 event\ListEventMessageOrBuilder.class
@@ -44,7 +42,6 @@ event\EventServiceOuterClass.class
 event\ListEventMessage.class
 event\StringRequestOrBuilder.class
 event\UserServiceGrpc$UserServiceImplBase.class
-domain\Event.class
 event\EventServiceGrpc$EventServiceStub.class
 event\UserServiceGrpc$UserServiceStub.class
 event\AddAttendeeRequest$1.class
