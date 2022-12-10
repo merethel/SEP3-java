@@ -99,15 +99,6 @@ public class EventDao implements EventDaoInterface {
                 predicates.add(builder.equal(eventRoot.get("category"), criteriaDto.getCategory()));
             if(criteriaDto.getOwnerId() != 0)
                 predicates.add(builder.equal(eventRoot.get("user"), criteriaDto.getOwnerId()));
-            if(criteriaDto.getAttendee() != 0)
-            {
-                Root<Event> eventRootToJoin = criteria.from(Event.class);
-                From<Object, Object> join = eventRootToJoin.join("attendees");
-                Path<Event> path = join.get("id");
-                Predicate predicate = builder.equal(path, criteriaDto.getAttendee());
-                predicates.add(predicate);
-            }
-
 
             criteria.where(builder.and(predicates.toArray(new Predicate[]{})));
 
