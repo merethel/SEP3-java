@@ -50,7 +50,6 @@ public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
         UserMessage reply = GrpcFactory.fromUserToMessage(userToDelete);
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
-
     }
 
 }

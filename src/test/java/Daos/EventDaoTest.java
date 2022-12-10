@@ -75,12 +75,13 @@ public class EventDaoTest {
 
 
           sessionFactory = configuration.buildSessionFactory();
+          session = sessionFactory.openSession();
 
           eventDao = new EventDao(sessionFactory);
      }
 
 
-     public void createManyEvents()
+     private void createManyEvents()
      {
           DateTime dateTime = DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build();
 
@@ -312,7 +313,7 @@ public class EventDaoTest {
           Event eventToCheck = eventDao.cancel(event.getId());
 
           //Assert
-          assertNull(eventDao.getById(eventToCheck.getId()));
+          assertTrue(eventDao.getById(eventToCheck.getId()).isCancelled);
      }
 
      @Test
@@ -335,7 +336,7 @@ public class EventDaoTest {
           //Act
           try {
                eventDao.cancel(-1);
-          } catch (IllegalArgumentException e) {
+          } catch (NullPointerException e) {
                thrown = true;
           }
 

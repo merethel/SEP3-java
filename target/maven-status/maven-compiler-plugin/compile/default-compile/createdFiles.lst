@@ -57,7 +57,6 @@ event\CriteriaDtoMessage.class
 event\DateTimeMessage$1.class
 event\EventServiceGrpc$EventServiceImplBase.class
 event\EventCreationDtoMessage.class
-services\EventServiceImpl.class
 event\EventMessageOrBuilder.class
 event\UserCreationDtoMessage.class
 event\UserCreationDtoMessageOrBuilder.class

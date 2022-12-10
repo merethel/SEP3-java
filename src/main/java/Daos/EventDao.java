@@ -59,12 +59,7 @@ public class EventDao implements EventDaoInterface {
 
         try {
             transaction = session.beginTransaction();
-
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Event> criteria = builder.createQuery(Event.class);
-            Root<Event> eventRoot = criteria.from(Event.class);
-            criteria.where(builder.and(builder.equal(eventRoot.get("eventId"), eventId), builder.equal(eventRoot.get("isCancelled"), false)));
-
+            eventToReturn = session.get(Event.class, eventId);
             transaction.commit();
 
         } catch (HibernateException ex) {
@@ -79,6 +74,8 @@ public class EventDao implements EventDaoInterface {
 
         return eventToReturn;
     }
+
+
 
     @Override
     public List<Event> getAllEvents(CriteriaDtoMessage criteriaDto) {
@@ -180,18 +177,11 @@ public class EventDao implements EventDaoInterface {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
         Event eventToCancel = null;
-        Event eventToReturn = null;
 
         try {
             transaction = session.beginTransaction();
-            System.out.println(eventId);
             eventToCancel = session.get(Event.class, eventId);
-            session.delete(eventToCancel);
-
             eventToCancel.setCancelled(true);
-            int eventToReturnId = (int) session.save(eventToCancel);
-
-            eventToReturn = session.get(Event.class, eventToReturnId);
 
             transaction.commit();
 
@@ -205,6 +195,6 @@ public class EventDao implements EventDaoInterface {
             session.close();
         }
 
-        return eventToReturn;
+        return eventToCancel;
     }
 }

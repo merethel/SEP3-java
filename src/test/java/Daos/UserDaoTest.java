@@ -6,15 +6,12 @@ import shared.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 import org.junit.jupiter.api.*;
-
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserDaoTest {
 
+public class UserDaoTest {
 
     private static SessionFactory sessionFactory;
     private static EventDao eventDao;
@@ -22,28 +19,11 @@ public class UserDaoTest {
     private static UserDao userDao;
 
     private static Session session;
-    @BeforeAll
-    public static void setUpDummyDatabase()
-    {
-        Configuration configuration = new org.hibernate.cfg.Configuration();
-        configuration.configure("hibernate.cfg.xml");
 
-        configuration.addAnnotatedClass(Event.class);
-        configuration.addAnnotatedClass(User.class);
-
-        configuration.setProperty("hibernate.default_schema", "test");
-
-        //Session factory - Creates temporary connections to the database (aka sessions)
-
-
-        sessionFactory = configuration.buildSessionFactory();
-
-        eventDao = new EventDao(sessionFactory);
-        userDao = new UserDao(sessionFactory);
-    }
 
     private Event createOneEvent(){
         //Arrange
+
         User user = createOneUser();
         Event eventToCreate = new Event(
                 user,
@@ -77,50 +57,35 @@ public class UserDaoTest {
         return user;
     }
 
-    public void createManyEvents()
+
+    @BeforeAll
+    public static void setUpDummyDatabase()
     {
-        DateTime dateTime = DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build();
+        Configuration configuration = new org.hibernate.cfg.Configuration();
+        configuration.configure("hibernate.cfg.xml");
+
+        configuration.addAnnotatedClass(Event.class);
+        configuration.addAnnotatedClass(User.class);
+
+        configuration.setProperty("hibernate.default_schema", "test");
+
+        //Session factory - Creates temporary connections to the database (aka sessions)
 
 
+        sessionFactory = configuration.buildSessionFactory();
         session = sessionFactory.openSession();
-        session.beginTransaction();
 
-        User user1 = new User("Username1", "password1", "email1@email.dk", "User");
-        User user2 = new User("Username2", "password2", "email2@email.dk", "User");
-        User user3 = new User("Username3", "password3", "email3@email.dk", "User");
-
-        session.save(user1);
-        session.save(user2);
-        session.save(user3);
-
-        session.save(new Event(user1, "Title1", "Description1", "Location1", dateTime,"Category1","Area1", new ArrayList<>()));
-        session.save(new Event(user2, "Title2", "Description2", "Location2", dateTime, "Category2","Area2", new ArrayList<>()));
-        session.save(new Event(user3, "Title3", "Description3", "Location3", dateTime, "Category3","Area3", new ArrayList<>()));
-        session.getTransaction().commit();
+        eventDao = new EventDao(sessionFactory);
+        userDao = new UserDao(sessionFactory);
     }
 
-    @AfterEach
-    public void emptyDummyDatabase()
-    {
-        session.beginTransaction();
-        System.out.println("emptying dummy database");
-        Class c1 = Event.class;
-        String hql1 = "delete from " + c1.getSimpleName();
-        Query q1 = session.createQuery( hql1 );
-        q1.executeUpdate();
-
-        Class c2 = User.class;
-        String hql2 = "delete from " + c2.getSimpleName();
-        Query q2 = session.createQuery( hql2 );
-        q2.executeUpdate();
-        session.getTransaction().commit();
-    }
 
     @Test
     public void testCreate()
     {
-        //Arrange
+        //Arrnge
         User user = createOneUser();
+
         //Act
         User createdUser = userDao.create(user);
 
@@ -134,11 +99,11 @@ public class UserDaoTest {
         //Arrange
         User user = createOneUser();
 
-        //Axt
+        //Act
         User created = userDao.getById(user.getId());
 
         //Assert
-        assertTrue(created.getId()==user.getId());
+        assertTrue(created.getId() == user.getId());
 
     }
 
@@ -147,11 +112,11 @@ public class UserDaoTest {
     {
         //Arrange
         User user = createOneUser();
-
         //Act
         User getByUsername = userDao.getByUsername(user.getUsername());
 
         //Assert
-        assertEquals(createOneUser().getUsername(),getByUsername.getUsername());
+        assertEquals(getByUsername.getUsername(), user.getUsername());
     }
+
 }
