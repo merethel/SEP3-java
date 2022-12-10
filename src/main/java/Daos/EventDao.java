@@ -10,9 +10,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.jboss.logging.Logger;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -91,33 +90,16 @@ public class EventDao implements EventDaoInterface {
             CriteriaQuery<Event> criteria = builder.createQuery(Event.class);
             Root<Event> eventRoot = criteria.from(Event.class);
 
+            List<Predicate> predicates = new ArrayList<>();
+            predicates.add(builder.equal(eventRoot.get("isCancelled"), criteriaDto.getIsCancelled()));
+            if(!criteriaDto.getArea().equals(""))
+                predicates.add(builder.equal(eventRoot.get("area"), criteriaDto.getArea()));
+            if(!criteriaDto.getCategory().equals(""))
+                predicates.add(builder.equal(eventRoot.get("category"), criteriaDto.getCategory()));
+            if(criteriaDto.getOwnerId() != 0)
+                predicates.add(builder.equal(eventRoot.get("user"), criteriaDto.getOwnerId()));
 
-
-
-            if (!criteriaDto.getArea().equals("") && !criteriaDto.getCategory().equals(""))
-            {criteria.where(builder.and(
-                    builder.equal(eventRoot.get("area"), criteriaDto.getArea()),
-                    builder.equal(eventRoot.get("category"), criteriaDto.getCategory()),
-                            builder.equal(eventRoot.get("isCancelled"), false))
-
-                    );
-                System.out.println("Made criteria with : " + criteriaDto.getArea() + " " + criteriaDto.getCategory());
-            }
-
-            else if(criteriaDto.getOwnerId() != 0)
-                criteria.where(builder.and(builder.equal(eventRoot.get("user"), criteriaDto.getOwnerId()), builder.equal(eventRoot.get("isCancelled"), false)));
-            else if(!criteriaDto.getArea().equals(""))
-                criteria.where(builder.and(builder.equal(eventRoot.get("area"), criteriaDto.getArea()), builder.equal(eventRoot.get("isCancelled"), false)));
-            else if(!criteriaDto.getCategory().equals(""))
-                criteria.where(builder.and(builder.equal(eventRoot.get("category"), criteriaDto.getCategory()), builder.equal(eventRoot.get("isCancelled"), false)));
-            else if(criteriaDto.getIsCancelled() && criteriaDto.getAttendee() != 0) {
-                criteria.where(builder.and(builder.equal(eventRoot.get("isCancelled"), criteriaDto.getIsCancelled())
-                ));
-            } else
-            {
-                criteria.where(builder.equal(eventRoot.get("isCancelled"), false));
-            }
-
+            criteria.where(builder.and(predicates.toArray(new Predicate[]{})));
 
 
             System.out.println("DEN HAR LAVET DET HERRRR:\nOwnerId: " + criteriaDto.getOwnerId() +
