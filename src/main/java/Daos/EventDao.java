@@ -10,9 +10,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.jboss.logging.Logger;
 
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class EventDao implements EventDaoInterface {
@@ -90,6 +90,7 @@ public class EventDao implements EventDaoInterface {
             CriteriaQuery<Event> criteria = builder.createQuery(Event.class);
             Root<Event> eventRoot = criteria.from(Event.class);
 
+
             List<Predicate> predicates = new ArrayList<>();
             predicates.add(builder.equal(eventRoot.get("isCancelled"), criteriaDto.getIsCancelled()));
             if(!criteriaDto.getArea().equals(""))
@@ -98,6 +99,15 @@ public class EventDao implements EventDaoInterface {
                 predicates.add(builder.equal(eventRoot.get("category"), criteriaDto.getCategory()));
             if(criteriaDto.getOwnerId() != 0)
                 predicates.add(builder.equal(eventRoot.get("user"), criteriaDto.getOwnerId()));
+            if(criteriaDto.getAttendee() != 0)
+            {
+                Root<Event> eventRootToJoin = criteria.from(Event.class);
+                From<Object, Object> join = eventRootToJoin.join("attendees");
+                Path<Event> path = join.get("id");
+                Predicate predicate = builder.equal(path, criteriaDto.getAttendee());
+                predicates.add(predicate);
+            }
+
 
             criteria.where(builder.and(predicates.toArray(new Predicate[]{})));
 
@@ -108,7 +118,8 @@ public class EventDao implements EventDaoInterface {
                             "\nIsCancelled: " + criteriaDto.getIsCancelled() +
                             "\nAttendee: " + criteriaDto.getAttendee());
 
-            eventToReturn = session.createQuery(criteria).getResultList();
+            TypedQuery<Event> typedQuery = session.createQuery(criteria);
+            eventToReturn = typedQuery.getResultList();
 
 
 
