@@ -14,33 +14,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UserDaoTest {
 
     private static SessionFactory sessionFactory;
-    private static EventDao eventDao;
 
     private static UserDao userDao;
 
     private static Session session;
 
 
-    private Event createOneEvent(){
-        //Arrange
-
-        User user = createOneUser();
-        Event eventToCreate = new Event(
-                user,
-                "TestTitle",
-                "TestDescription",
-                "TestLocation",
-                DateTime.newBuilder().setDay(1).setMonth(1).setYear(2023).setHours(12).build(),
-                "Category",
-                "Area",
-                new ArrayList<>());
-
-        session.beginTransaction();
-        session.save(eventToCreate);
-        session.getTransaction().commit();
-
-        return eventToCreate;
-    }
 
     private User createOneUser(){
         //Arrange
@@ -75,7 +54,6 @@ public class UserDaoTest {
         sessionFactory = configuration.buildSessionFactory();
         session = sessionFactory.openSession();
 
-        eventDao = new EventDao(sessionFactory);
         userDao = new UserDao(sessionFactory);
     }
 

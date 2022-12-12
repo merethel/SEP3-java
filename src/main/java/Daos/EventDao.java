@@ -103,12 +103,6 @@ public class EventDao implements EventDaoInterface {
             criteria.where(builder.and(predicates.toArray(new Predicate[]{})));
 
 
-            System.out.println("DEN HAR LAVET DET HERRRR:\nOwnerId: " + criteriaDto.getOwnerId() +
-                            "\nArea: " + criteriaDto.getArea() +
-                            "\nCategory: " + criteriaDto.getCategory() +
-                            "\nIsCancelled: " + criteriaDto.getIsCancelled() +
-                            "\nAttendee: " + criteriaDto.getAttendee());
-
             TypedQuery<Event> typedQuery = session.createQuery(criteria);
             eventToReturn = typedQuery.getResultList();
 
