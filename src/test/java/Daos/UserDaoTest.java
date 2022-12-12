@@ -93,6 +93,9 @@ public class UserDaoTest {
         assertSame(user, createdUser);
     }
 
+
+
+
     @Test
     public void testGetById()
     {
@@ -104,11 +107,28 @@ public class UserDaoTest {
 
         //Assert
         assertTrue(created.getId() == user.getId());
-
     }
 
     @Test
-    public void getByUsername()
+    public void testGetIdWithNonExistingValueThrowsException() {
+        //Arrange
+        boolean thrown = false;
+
+        //Act
+        try {
+            User user = userDao.getById(-1);
+            user.getId();
+        } catch (NullPointerException e) {
+            thrown = true;
+        }
+
+        //Assert
+        assertTrue(thrown);
+    }
+
+
+    @Test
+    public void testGetByUsername()
     {
         //Arrange
         User user = createOneUser();
@@ -118,5 +138,24 @@ public class UserDaoTest {
         //Assert
         assertEquals(getByUsername.getUsername(), user.getUsername());
     }
+
+
+    @Test
+    public void testGetByUsernameThrowsExceptionAtNonExistingUsername()
+    {
+        //Arrange
+        boolean thrown = false;
+
+        //Act
+        try {
+            User getByUsername = userDao.getByUsername("tester");;
+            getByUsername.getUsername();
+        } catch (NullPointerException e) {
+            thrown = true;
+        }
+        //Assert
+        assertTrue(thrown);
+    }
+
 
 }
