@@ -54,9 +54,8 @@ public class UserDao implements UserDaoInterface {
 
         try {
             transaction = session.beginTransaction();
-
-
             userToReturn = session.get(User.class, userId);
+
 
             transaction.commit();
 
