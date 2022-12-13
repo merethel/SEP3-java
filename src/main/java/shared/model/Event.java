@@ -15,19 +15,14 @@ public class Event {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "event_seq")
     private int id;
     @ManyToOne()
-    public User user;
-    public String title;
-    public String description;
-    public String location;
-    public DateTime dateTime;
-    public String category;
-    public String area;
-
-
-
+    private User user;
+    private String title;
+    private String description;
+    private String location;
+    private DateTime dateTime;
+    private String category;
+    private String area;
     public boolean isCancelled;
-
-
     @ManyToMany(fetch = FetchType.EAGER)
     public List<User> attendees;
 
@@ -72,10 +67,6 @@ public class Event {
         return location;
     }
 
-    public List<User> getAttendees() {
-        return attendees;
-    }
-
     public DateTime getDateTime() {
         return dateTime;
     }
@@ -96,12 +87,12 @@ public class Event {
         this.area = area;
     }
 
-    public boolean isCancelled() {
-        return isCancelled;
-    }
-
-
     public void setCancelled(boolean cancelled) {
         isCancelled = cancelled;
     }
+
+    public List<User> getAttendees() {
+        return attendees;
+    }
+
 }

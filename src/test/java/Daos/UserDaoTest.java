@@ -1,13 +1,10 @@
 package Daos;
-
-import com.google.type.DateTime;
 import shared.model.Event;
 import shared.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.jupiter.api.*;
-import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -126,7 +123,7 @@ public class UserDaoTest {
 
         //Act
         try {
-            User getByUsername = userDao.getByUsername("tester");;
+            User getByUsername = userDao.getByUsername("tester");
             getByUsername.getUsername();
         } catch (NullPointerException e) {
             thrown = true;
@@ -135,5 +132,24 @@ public class UserDaoTest {
         assertTrue(thrown);
     }
 
+    @Test
+    public void testDeleteUser() {
+        //Arrange
+        User userToDelete = createOneUser();
+        boolean thrown = false;
 
+        //Act
+        try {
+            userDao.deleteUser(userToDelete.getId());
+            User user = userDao.getById(userToDelete.getId());
+            user.getId();
+        }
+
+        catch (NullPointerException e){
+            thrown = true;
+        }
+
+        //Assert
+        assertTrue(thrown);
+    }
 }

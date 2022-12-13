@@ -7,13 +7,11 @@ import event.*;
 import io.grpc.stub.StreamObserver;
 
 public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
-
     private final UserDao userDao;
 
     public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }
-
 
     @Override
     public void create(UserCreationDtoMessage request, StreamObserver<UserMessage> responseObserver) {

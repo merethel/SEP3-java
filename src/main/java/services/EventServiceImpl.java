@@ -13,8 +13,6 @@ import io.grpc.stub.StreamObserver;
 import java.util.List;
 
 public class EventServiceImpl extends EventServiceGrpc.EventServiceImplBase {
-
-    //private final EventDao eventDao;
     private final EventDaoInterface eventDao;
     private final UserDaoInterface userDao;
 

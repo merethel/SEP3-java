@@ -61,7 +61,7 @@ public class GrpcFactoryTest
         Event eventTest = GrpcFactory.fromEventCreationDtoMessageToEvent(dtoMessage);
 
         //Assert
-        assertEquals(dtoMessage.getUsername(), eventTest.user.getUsername());
+        assertEquals(dtoMessage.getUsername(), eventTest.getOwner().getUsername());
         assertEquals(dtoMessage.getTitle(), eventTest.getTitle());
         assertEquals(dtoMessage.getDescription(), eventTest.getDescription());
         assertEquals(dtoMessage.getLocation(), eventTest.getLocation());
@@ -176,8 +176,8 @@ public class GrpcFactoryTest
         ListEventMessage ListEventMessage = GrpcFactory.fromEventListToEventListMessage(events);
 
         //Assert
-        assertEquals(events.get(0).title, ListEventMessage.getEventsList().get(0).getTitle());
-        assertEquals(events.get(2).area, ListEventMessage.getEventsList().get(2).getArea());
+        assertEquals(events.get(0).getTitle(), ListEventMessage.getEventsList().get(0).getTitle());
+        assertEquals(events.get(2).getArea(), ListEventMessage.getEventsList().get(2).getArea());
         assertEquals(events.get(1).getId(), ListEventMessage.getEventsList().get(1).getId());
     }
 }

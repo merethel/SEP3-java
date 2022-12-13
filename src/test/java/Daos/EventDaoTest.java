@@ -344,8 +344,4 @@ public class EventDaoTest {
           assertTrue(thrown);
      }
 
-
-
-
-
 }
